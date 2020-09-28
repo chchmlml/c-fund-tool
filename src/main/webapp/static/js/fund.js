@@ -48,6 +48,7 @@ function openfundModifyDialog() {
   }
   //加载数据至表单
   $('#fm').form('load', selections[0]);
+  $('#buildDate').val('setValue', selections[0].buildDate);
   //设置窗口相关属性，并打开
   $('#dlg').dialog({
     title: '修改基金',
