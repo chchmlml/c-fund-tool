@@ -47,13 +47,20 @@ public class MenuController {
                 .state("open")
                 .attributes(Attributes.builder().url("/purchase/purchase.html").build())
                 .build();
+        Element fund = Element.builder()
+                .id(1002)
+                .text("关注基金")
+                .iconCls("menu-12")
+                .state("open")
+                .attributes(Attributes.builder().url("/asset/fund.html").build())
+                .build();
 
         Element account = Element.builder()
                 .id(10)
                 .text("我的资产")
                 .iconCls("menu-1")
                 .state("closed")
-                .children(Arrays.asList(asset))
+                .children(Arrays.asList(asset, fund))
                 .build();
         Element data = Element.builder()
                 .id(11)

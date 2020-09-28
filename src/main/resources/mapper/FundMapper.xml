@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="io.haicheng.cfundtool.mapper.FundMapper">
+  <resultMap id="BaseResultMap" type="io.haicheng.cfundtool.pojo.Fund">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER"/>
+    <result column="name" property="name" jdbcType="VARCHAR"/>
+    <result column="code" property="code" jdbcType="VARCHAR"/>
+    <result column="scope" property="scope" jdbcType="INTEGER"/>
+    <result column="build_date" property="buildDate" jdbcType="DATE"/>
+  </resultMap>
+
+  <insert id="saveFund" useGeneratedKeys="true" keyProperty="id"
+    parameterType="io.haicheng.cfundtool.pojo.Fund">
+        INSERT INTO fund
+        (`name`, code, scope, build_date)
+        VALUES (#{name}, #{code}, #{scope}, #{buildDate})
+    </insert>
+
+  <select id="getFundList" resultMap="BaseResultMap">
+    SELECT id, `name`, code, scope, build_date FROM
+    fund
+    <where>
+      <if test="name != null and name != ''">
+        fund.name LIKE CONCAT('%', #{name} ,'%')
+      </if>
+    </where>
+    LIMIT #{offSet}, #{pageRow}
+  </select>
+
+  <select id="getFundCount" resultType="java.lang.Integer">
+    SELECT
+    COUNT(*)
+    FROM
+    fund
+    <where>
+      <if test="name != null and name != ''">
+        fund.name LIKE CONCAT('%', #{name} ,'%')
+      </if>
+    </where>
+  </select>
+
+  <update id="updateFund" parameterType="io.haicheng.cfundtool.pojo.Fund">
+    UPDATE fund
+    <set>
+      <if test="name != '' and name != null">
+        name = #{name},
+      </if>
+      <if test="code != '' and code != null">
+        code = #{code},
+      </if>
+      <if test="scope != '' and scope != null">
+        scope = #{scope},
+      </if>
+      <if test="buildDate != null">
+        build_date = #{buildDate,jdbcType=DATE},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <select id="getFundById" resultMap="BaseResultMap">
+        SELECT id,`name`, code, scope, build_date FROM
+            fund
+        WHERE
+            id = #{id}
+    </select>
+
+  <delete id="deleteFund" parameterType="java.lang.Integer">
+        DELETE FROM
+        fund
+        WHERE id = #{id}
+    </delete>
+
+  <select id="getFundListByNameLike" resultMap="BaseResultMap">
+    SELECT id, `name`, code, scope, build_date FROM
+    fund
+    <where>
+      <if test="q != null and q != ''">
+        fund.name LIKE CONCAT('%', #{q} ,'%')
+      </if>
+    </where>
+  </select>
+
+</mapper>

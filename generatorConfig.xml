@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+  <context id="MysqlContext" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+    <property name="beginningDelimiter" value="`"/>
+    <property name="endingDelimiter" value="`"/>
+
+    <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+      <property name="mappers" value="io.haicheng.cfundtool.utils.MyMapper"/>
+    </plugin>
+
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+      connectionURL="jdbc:mysql://localhost:3306/cfundtool"
+      userId="root"
+      password="">
+    </jdbcConnection>
+
+    <!-- 对于生成的pojo所在包 -->
+    <javaModelGenerator targetPackage="io.haicheng.cfundtool.pojo" targetProject="src/main/java"/>
+
+    <!-- 对于生成的mapper所在目录 -->
+    <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources"/>
+
+    <!-- 配置mapper对应的java映射 -->
+    <javaClientGenerator targetPackage="io.haicheng.cfundtool.mapper" targetProject="src/main/java"
+      type="XMLMAPPER"/>
+
+
+    <table tableName="account_daily_income"></table>
+    <table tableName="account_deal_log"></table>
+    <table tableName="fund"></table>
+    <table tableName="fund_daily_data"></table>
+    <table tableName="relation_fund_stock"></table>
+    <table tableName="stock"></table>
+
+  </context>
+</generatorConfiguration>
