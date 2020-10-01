@@ -13,11 +13,13 @@ public interface FundMapper extends MyMapper<Fund> {
 
     Integer getFundCount(@Param("name") String name);
 
-    Integer saveFund(Fund Fund);
+    Integer saveFund(Fund fund);
 
-    Integer updateFund(Fund Fund);
+    Integer updateFund(Fund fund);
 
-    Fund getFundById(Integer FundId);
+    Fund getFundById(Integer id);
 
-    Integer deleteFund(Integer FundId);
+    Integer deleteFund(Integer id);
+
+    List<Fund> getFundListByNameLike(String q);
 }

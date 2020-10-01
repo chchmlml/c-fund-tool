@@ -9,17 +9,8 @@ package io.haicheng.cfundtool.service;
  * @date 2020/9/28 3:42 下午
  */
 
-import io.haicheng.cfundtool.domain.ServiceVO;
-import io.haicheng.cfundtool.pojo.Fund;
 import java.util.Map;
 
-public interface FundService {
-
+public interface DataService {
     Map<String,Object> list(Integer page, Integer rows, String name);
-
-    ServiceVO save(Fund fund);
-
-    ServiceVO get(Integer id);
-
-    ServiceVO delete(String ids);
 }

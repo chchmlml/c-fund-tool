@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>基金管理</title>
+  <link rel="stylesheet" type="text/css" href="../static/easyui/themes/default/easyui.css" />
+  <link rel="stylesheet" type="text/css" href="../static/easyui/themes/icon.css" />
+  <link rel="stylesheet" type="text/css" href="../static/css/data.css" />
+  <script type="text/javascript" src="../static/easyui/jquery.min.js"></script>
+  <script type="text/javascript" src="../static/easyui/jquery.easyui.min.js"></script>
+  <script type="text/javascript" src="../static/easyui/locale/easyui-lang-zh_CN.js"></script>
+  <script type="text/javascript" src="../static/js/data.js"></script>
+</head>
+<body>
+<table id="dg" class="easyui-datagrid" fit="true" fitColumns="true" pagination="true" rownumbers="true"
+       singleSelect="false" url="/data/list" pageList="[30,40,50]" pageSize="30" toolbar="#tb" striped="true"
+       title="基金管理">
+  <thead>
+  <tr>
+    <th field="date" align="center">日期</th>
+    <th field="indexName" align="center">指数名称</th>
+    <th field="code" align="center">场内基金</th>
+    <th field="codeInner" align="center">场外基金</th>
+    <th field="ep" align="center">盈利收益率</th>
+    <th field="pe" align="center">市盈率</th>
+    <th field="pb" align="center">市净率</th>
+    <th field="dyr" align="center">股息率</th>
+    <th field="roe" align="center">ROE</th>
+  </tr>
+  </thead>
+</table>
+
+<div id="tb">
+  <div>
+    &nbsp;基金名称：&nbsp;<input type="text" id="s_name" onkeydown="if(event.keyCode === 13) searchData()"/>
+    <a href="javascript:searchfund()" class="easyui-linkbutton" iconCls="search" plain="true">搜索</a>
+  </div>
+</div>
+
+</body>
+</html>

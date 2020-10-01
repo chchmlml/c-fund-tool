@@ -34,15 +34,12 @@ public class FundServiceTest {
     @Test
     public void testSave() {
         Fund fund = new Fund();
-        fund.setName("沪深100");
-        fund.setCode("1000111");
         fund.setScope(10000);
         fund.setBuildDate(DateTimeUtil.getCurrentDateStr());
 
         fundService.save(fund);
 
         fund.setId(1);
-        fund.setName("update沪深123");
         fundService.save(fund);
     }
 

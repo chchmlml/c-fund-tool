@@ -8,27 +8,18 @@ import org.springframework.stereotype.Repository;
 
 @Data
 @Repository
-@Table(name = "account_deal_log")
-public class AccountDealLog {
-    /**
-     * 主键
-     */
+@Table(name = "deal")
+public class Deal {
     @Id
     private Integer id;
 
-    /**
-     * 日期
-     */
     private String date;
 
-    /**
-     * 基金id
-     */
     @Column(name = "fund_id")
     private Integer fundId;
 
-    /**
-     * 金额
-     */
-    private Integer sum;
+    @Column(name = "fund_name")
+    private String fundName;
+
+    private Double amount;
 }

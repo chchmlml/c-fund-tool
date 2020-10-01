@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="io.haicheng.cfundtool.mapper.DealMapper">
+  <resultMap id="BaseResultMap" type="io.haicheng.cfundtool.pojo.Deal">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER"/>
+    <result column="date" property="date" jdbcType="DATE"/>
+    <result column="fund_id" property="fundId" jdbcType="INTEGER"/>
+    <result column="fund_name" property="fundName" jdbcType="VARCHAR"/>
+    <result column="amount" property="amount" jdbcType="FLOAT"/>
+  </resultMap>
+
+
+  <insert id="saveDeal" useGeneratedKeys="true" keyProperty="id"
+    parameterType="io.haicheng.cfundtool.pojo.Deal">
+        INSERT INTO deal
+        (`date`, fund_id, `amount`)
+        VALUES (#{date}, #{fundId}, #{amount})
+    </insert>
+
+  <select id="getDealList" resultMap="BaseResultMap">
+    SELECT deal.id as id, `date`, deal.fund_id AS fund_id, `amount`, fund.fund_name AS `fund_name`, `amount` FROM
+    deal
+    LEFT JOIN fund ON fund.id = deal.fund_id
+    <where>
+      <if test="name != null and name != ''">
+        fund.name LIKE CONCAT('%', #{name} ,'%')
+      </if>
+    </where>
+    ORDER BY `date` DESC
+    LIMIT #{offSet}, #{pageRow}
+  </select>
+
+  <select id="getDealCount" resultType="java.lang.Integer">
+    SELECT
+    COUNT(*)
+    FROM
+    deal
+    LEFT JOIN fund ON fund.id = deal.fund_id
+    <where>
+      <if test="name != null and name != ''">
+        fund.name LIKE CONCAT('%', #{name} ,'%')
+      </if>
+    </where>
+  </select>
+
+  <update id="updateDeal" parameterType="io.haicheng.cfundtool.pojo.Deal">
+    UPDATE deal
+    <set>
+      <if test="date != null">
+        `date` = #{date,jdbcType=DATE},
+      </if>
+      <if test="fundId != '' and fundId != null">
+        fund_id = #{fundId},
+      </if>
+      <if test="amount != '' and amount != null">
+        `amount` = #{amount},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <select id="getDealById" resultMap="BaseResultMap">
+    SELECT deal.id as id, `date`, deal.fund_id AS fundId, `amount`, fund.fund_name AS `fundName`, `amount` FROM
+    deal
+    LEFT JOIN fund ON fund.id = deal.fund_id
+    WHERE deal.id = #{id}
+    </select>
+
+  <delete id="deleteDeal" parameterType="java.lang.Integer">
+        DELETE FROM
+        deal
+        WHERE id = #{id}
+    </delete>
+
+</mapper>

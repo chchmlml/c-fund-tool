@@ -1,10 +1,10 @@
 /**
  * 根据基金名模糊查询基金信息
  */
-function searchFund() {
+function searchdeal() {
 
     $('#dg').datagrid('load', {
-        fundName: $('#s_name').val()
+        dealName: $('#s_name').val()
     });
 }
 
@@ -13,31 +13,28 @@ var url;
 /**
  * 打开新增基金窗口
  */
-function openFundAddDialog() {
+function openDealAddDialog() {
     $('#dlg').dialog({
-        title: '添加基金',
+        title: '添加购买记录',
         iconCls: 'add',
         closed: false,
         top: $(window).height() / 4,
         width: 500,
-        height: 450,
+        height: 350,
         onClose: function () {
-            $('#fundName').textbox('setValue', '');
-            $('#outsideFund').textbox('setValue', '');
-            $('#insideFund').textbox('setValue', '');
-            $('#scope').textbox('setValue', '');
-            $('#desc').textbox('setValue', '');
-            $('#buildDate').textbox('setValue', '');
+            $('#date').textbox('setValue', '');
+            $('#fundId').textbox('setValue', '');
+            $('#amount').textbox('setValue', '');
         }
     });
 
-    url = "/fund/save";
+    url = "/deal/save";
 }
 
 /**
  * 打开修改基金窗口
  */
-function openFundModifyDialog() {
+function openDealModifyDialog() {
     var selections = $('#dg').datagrid('getSelections');
     if (selections.length < 1) {
         $.messager.alert({
@@ -50,6 +47,8 @@ function openFundModifyDialog() {
     }
     //加载数据至表单
     $('#fm').form('load', selections[0]);
+    console.log(selections[0]);
+    $('#buildDate').val('setValue', selections[0].buildDate);
     //设置窗口相关属性，并打开
     $('#dlg').dialog({
         title: '修改基金',
@@ -57,31 +56,24 @@ function openFundModifyDialog() {
         closed: false,
         top: $(window).height() / 4,
         width: 500,
-        height: 450,
+        height: 350,
         onClose: function () {
-            $('#fundName').textbox('setValue', '');
-            $('#outsideFund').textbox('setValue', '');
-            $('#insideFund').textbox('setValue', '');
-            $('#scope').textbox('setValue', '');
-            $('#desc').textbox('setValue', '');
-            $('#buildDate').textbox('setValue', '');
+            $('#date').textbox('setValue', '');
+            $('#fundId').textbox('setValue', '');
+            $('#amount').textbox('setValue', '');
         }
     });
 
-    url = "/fund/save?id=" + selections[0].id;
+    url = "/deal/save?id=" + selections[0].id;
 }
 
 /**
  * 关闭窗口
  */
 function closeDlg() {
-    $('#fundName').textbox('setValue', '');
-    $('#outsideFund').textbox('setValue', '');
-    $('#insideFund').textbox('setValue', '');
-    $('#scope').textbox('setValue', '');
-    $('#desc').textbox('setValue', '');
-    $('#buildDate').datebox('setValue', '');
-    ;
+    $('#date').textbox('setValue', '');
+    $('#fundId').textbox('setValue', '');
+    $('#amount').textbox('setValue', '');
     $('#dlg').dialog('close');
 }
 
@@ -91,24 +83,31 @@ $(function () {
         onDblClickRow: function (index, row) {
             //加载数据至表单
             $('#fm').form('load', row);
+            console.log(row);
             $('#dlg').dialog({
-                title: '修改基金',
+                title: '修改交易',
                 iconCls: 'update',
                 closed: false,
                 top: $(window).height() / 4,
                 width: 500,
                 height: 350,
                 onClose: function () {
-                    $('#name').textbox('setValue', '');
-                    $('#code').textbox('setValue', '');
-                    $('#scope').textbox('setValue', '');
-                    $('#buildDate').textbox('setValue', '2020-01-01');
+                    $('#date').textbox('setValue', '');
+                    $('#fundId').textbox('setValue', '');
+                    $('#amount').textbox('setValue', '');
                 }
             });
 
-            url = "/fund/save?id=" + row.id;
+            url = "/deal/save?id=" + row.id;
         }
     })
+
+    $('#fundId').combobox({
+        mode: 'remote',
+        url: '/deal/getComboboxList',
+        valueField: 'fundId',
+        textField: 'fundName'
+    });
 });
 
 /**
@@ -118,63 +117,33 @@ function saveData() {
     $('#fm').form('submit', {
         url: url,
         onSubmit: function () {
-            if ($('#fundName').val() === null || $('#fundName').val() === '') {
+
+            if ($('#date').val() === null || $('#date').val() === '') {
                 $.messager.alert({
                     title: '系统提示',
-                    msg: '请输入基金名称',
+                    msg: '请输入购买时间',
                     icon: 'error',
                     top: $(window).height() / 4
                 });
 
                 return false;
             }
-            if ($('#outsideFund').val() === null || $('#outsideFund').val()
-                === '') {
+
+            var fundId = $('#fundId').combobox('getValue');
+            if (fundId === null || fundId === '') {
                 $.messager.alert({
                     title: '系统提示',
-                    msg: '请输入基金代码（场外）',
+                    msg: '请输入基金',
                     icon: 'error',
                     top: $(window).height() / 4
                 });
 
                 return false;
             }
-            if ($('#insideFund').val() === null || $('#insideFund').val()
-                === '') {
+            if ($('#amount').val() === null || $('#amount').val() === '') {
                 $.messager.alert({
                     title: '系统提示',
-                    msg: '请输入基金代码（场内）',
-                    icon: 'error',
-                    top: $(window).height() / 4
-                });
-
-                return false;
-            }
-            if ($('#scope').val() === null || $('#scope').val() === '') {
-                $.messager.alert({
-                    title: '系统提示',
-                    msg: '请输入基金规模',
-                    icon: 'error',
-                    top: $(window).height() / 4
-                });
-
-                return false;
-            }
-            if ($('#desc').val() === null || $('#desc').val() === '') {
-                $.messager.alert({
-                    title: '系统提示',
-                    msg: '请输入基金描述',
-                    icon: 'error',
-                    top: $(window).height() / 4
-                });
-
-                return false;
-            }
-            if ($('#buildDate').textbox() === null || $('#buildDate').textbox()
-                === '') {
-                $.messager.alert({
-                    title: '系统提示',
-                    msg: '请输入基金成立时间',
+                    msg: '请输入金额',
                     icon: 'error',
                     top: $(window).height() / 4
                 });
@@ -210,7 +179,7 @@ function saveData() {
 /**
  * 删除用户信息
  */
-function deleteFund() {
+function deletedeal() {
     var selections = $('#dg').datagrid('getSelections');
     if (selections.length < 1) {
         $.messager.alert({
@@ -233,7 +202,7 @@ function deleteFund() {
                 }
                 var ids = idsAr.join(",");
                 $.ajax({
-                    url: '/fund/delete',
+                    url: '/deal/delete',
                     dataType: 'json',
                     type: 'post',
                     data: {

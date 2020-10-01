@@ -1,48 +1,44 @@
 @CHARSET "UTF-8";
 body {
-	margin: 1px !important;
+  margin: 1px !important;
 }
 
-#s_name{
-	width: 200px;
-	border-radius:4px;
+
+#fm {
+  padding: 10px 20px 10px 20px;
 }
 
-#fm{
-	padding: 10px 20px 10px 20px;
+#fundName {
+  width: 200px;
+  border-radius: 4px 4px 4px 4px;
 }
 
-#name{
-	width: 200px;
-	border-radius: 4px 4px 4px 4px;
+#insideFund {
+  width: 200px;
+  border-radius: 4px 4px 4px 4px;
 }
 
-#contacts{
-	width: 200px;
-	border-radius: 4px 4px 4px 4px;
+#outsideFund {
+  width: 200px;
+  border-radius: 4px 4px 4px 4px;
 }
 
-#phoneNumber{
-	width: 200px;
-	border-radius: 4px 4px 4px 4px;
+#scope {
+  width: 200px;
+  border-radius: 4px 4px 4px 4px;
 }
 
-#address{
-	width: 200px;
-	border-radius: 4px 4px 4px 4px;
+#buildDate {
+  width: 200px;
+  border-radius: 4px 4px 4px 4px;
 }
 
-#remarks{
-	resize:none;
-	width: 280px;
-	border-radius: 4px 4px 4px 4px;
-	font-family:"微软雅黑";
-	border-width: 2px;
-    border-style: inset;
-    border-color: initial;
-    border-image: initial;
+#desc {
+  width: 200px;
+  height: 100px;
+  border-radius: 4px 4px 4px 4px;
 }
 
-fieldset{
-	border-color: #E7F0FF
+fieldset {
+  border-color: #E7F0FF
 }

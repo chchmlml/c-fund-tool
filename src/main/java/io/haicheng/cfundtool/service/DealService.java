@@ -10,16 +10,19 @@ package io.haicheng.cfundtool.service;
  */
 
 import io.haicheng.cfundtool.domain.ServiceVO;
-import io.haicheng.cfundtool.pojo.Fund;
+import io.haicheng.cfundtool.pojo.Deal;
+import java.util.List;
 import java.util.Map;
 
-public interface FundService {
+public interface DealService {
 
     Map<String,Object> list(Integer page, Integer rows, String name);
 
-    ServiceVO save(Fund fund);
+    ServiceVO save(Deal customer);
 
     ServiceVO get(Integer id);
 
     ServiceVO delete(String ids);
+
+    List<Map> getComboboxList(String q);
 }

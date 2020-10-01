@@ -40,6 +40,7 @@ public class MenuController {
     @RequestMapping("/loadMenu")
     public String loadMenu() {
 
+        // ==================== level 1-1 ========================
         Element asset = Element.builder()
                 .id(1001)
                 .text("资产")
@@ -54,35 +55,69 @@ public class MenuController {
                 .state("open")
                 .attributes(Attributes.builder().url("/asset/fund.html").build())
                 .build();
+        Element buy = Element.builder()
+                .id(1003)
+                .text("投资管理")
+                .iconCls("menu-13")
+                .state("open")
+                .attributes(Attributes.builder().url("/asset/deal.html").build())
+                .build();
+        Element index = Element.builder()
+                .id(1004)
+                .text("指数列表")
+                .iconCls("menu-14")
+                .state("open")
+                .attributes(Attributes.builder().url("/asset/index.html").build())
+                .build();
 
         Element account = Element.builder()
                 .id(10)
                 .text("我的资产")
                 .iconCls("menu-1")
                 .state("closed")
-                .children(Arrays.asList(asset, fund))
+                .children(Arrays.asList(asset, fund, buy, index))
                 .build();
+
+        // ==================== level 1-2 ========================
+        Element index2 = Element.builder()
+                .id(2001)
+                .text("指数估值")
+                .iconCls("menu-21")
+                .state("open")
+                .attributes(Attributes.builder().url("/data/index.html").build())
+                .build();
+        Element report = Element.builder()
+                .id(2002)
+                .text("收益报表")
+                .iconCls("menu-22")
+                .state("open")
+                .attributes(Attributes.builder().url("/asset/fund.html").build())
+                .build();
+
         Element data = Element.builder()
-                .id(11)
+                .id(20)
                 .text("数据报表")
                 .iconCls("menu-2")
                 .state("closed")
-                .children(Arrays.asList(asset))
-                .build();
-        Element log = Element.builder()
-                .id(12)
-                .text("日志")
-                .iconCls("menu-3")
-                .state("closed")
-                .children(Arrays.asList(asset))
+                .children(Arrays.asList(index, report))
                 .build();
 
+        // ==================== level 1-3 ========================
+        //        Element log = Element.builder()
+        //                .id(30)
+        //                .text("日志")
+        //                .iconCls("menu-3")
+        //                .state("closed")
+        //                .children(Arrays.asList(index))
+        //                .build();
+
+        // ==================== level 0 ========================
         Element system = Element.builder()
                 .id(1)
                 .text("系统菜单")
                 .iconCls("menu-plugin")
                 .state("closed")
-                .children(Arrays.asList(account, data, log))
+                .children(Arrays.asList(account, data))
                 .build();
 
         return JsonUtil.obj2String(Arrays.asList(system));

@@ -10,14 +10,16 @@ package io.haicheng.cfundtool.service;
  */
 
 import io.haicheng.cfundtool.domain.ServiceVO;
-import io.haicheng.cfundtool.pojo.Fund;
+import io.haicheng.cfundtool.pojo.Index;
 import java.util.Map;
 
-public interface FundService {
+public interface IndexService {
 
     Map<String,Object> list(Integer page, Integer rows, String name);
 
-    ServiceVO save(Fund fund);
+    ServiceVO save(Index indx);
+
+    ServiceVO saveByCode(Index indx);
 
     ServiceVO get(Integer id);
 

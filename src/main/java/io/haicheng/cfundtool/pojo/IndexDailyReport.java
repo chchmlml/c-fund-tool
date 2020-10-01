@@ -8,19 +8,16 @@ import org.springframework.stereotype.Repository;
 
 @Data
 @Repository
-@Table(name = "fund_daily_data")
-public class FundDailyData {
-    /**
-     * 主键
-     */
+@Table(name = "index_daily_report")
+public class IndexDailyReport {
     @Id
     private Integer id;
 
     /**
      * 基金id
      */
-    @Column(name = "fund_id")
-    private Integer fundId;
+    @Column(name = "index_id")
+    private Integer indexId;
 
     /**
      * 日期

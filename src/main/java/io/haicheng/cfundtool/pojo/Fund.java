@@ -8,30 +8,23 @@ import lombok.Data;
 @Data
 @Repository
 public class Fund {
-    /**
-     * 主键
-     */
+
     @Id
     private Integer id;
 
-    /**
-     * 基金名称
-     */
-    private String name;
+    @Column(name = "fund_name")
+    private String fundName;
 
-    /**
-     * 基金代码
-     */
-    private String code;
+    @Column(name = "outside_fund")
+    private String outsideFund;
 
-    /**
-     * 基金规模
-     */
+    @Column(name = "inside_fund")
+    private String insideFund;
+
     private Integer scope;
 
-    /**
-     * 成立时间
-     */
+    private String desc;
+
     @Column(name = "build_date")
     private String buildDate;
 }

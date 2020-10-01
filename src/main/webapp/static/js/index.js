@@ -1,43 +1,39 @@
 /**
- * 根据基金名模糊查询基金信息
+ * 根据指数名模糊查询指数信息
  */
-function searchFund() {
+function searchIndex() {
 
     $('#dg').datagrid('load', {
-        fundName: $('#s_name').val()
+        IndexName: $('#s_name').val()
     });
 }
 
 var url;
 
 /**
- * 打开新增基金窗口
+ * 打开新增指数窗口
  */
-function openFundAddDialog() {
+function openIndexAddDialog() {
     $('#dlg').dialog({
-        title: '添加基金',
+        title: '添加指数',
         iconCls: 'add',
         closed: false,
         top: $(window).height() / 4,
         width: 500,
         height: 450,
         onClose: function () {
-            $('#fundName').textbox('setValue', '');
-            $('#outsideFund').textbox('setValue', '');
-            $('#insideFund').textbox('setValue', '');
-            $('#scope').textbox('setValue', '');
-            $('#desc').textbox('setValue', '');
-            $('#buildDate').textbox('setValue', '');
+            $('#name').textbox('setValue', '');
+            $('#code').textbox('setValue', '');
         }
     });
 
-    url = "/fund/save";
+    url = "/index/save";
 }
 
 /**
- * 打开修改基金窗口
+ * 打开修改指数窗口
  */
-function openFundModifyDialog() {
+function openIndexModifyDialog() {
     var selections = $('#dg').datagrid('getSelections');
     if (selections.length < 1) {
         $.messager.alert({
@@ -52,35 +48,27 @@ function openFundModifyDialog() {
     $('#fm').form('load', selections[0]);
     //设置窗口相关属性，并打开
     $('#dlg').dialog({
-        title: '修改基金',
+        title: '修改指数',
         iconCls: 'update',
         closed: false,
         top: $(window).height() / 4,
         width: 500,
         height: 450,
         onClose: function () {
-            $('#fundName').textbox('setValue', '');
-            $('#outsideFund').textbox('setValue', '');
-            $('#insideFund').textbox('setValue', '');
-            $('#scope').textbox('setValue', '');
-            $('#desc').textbox('setValue', '');
-            $('#buildDate').textbox('setValue', '');
+            $('#name').textbox('setValue', '');
+            $('#code').textbox('setValue', '');
         }
     });
 
-    url = "/fund/save?id=" + selections[0].id;
+    url = "/index/save?id=" + selections[0].id;
 }
 
 /**
  * 关闭窗口
  */
 function closeDlg() {
-    $('#fundName').textbox('setValue', '');
-    $('#outsideFund').textbox('setValue', '');
-    $('#insideFund').textbox('setValue', '');
-    $('#scope').textbox('setValue', '');
-    $('#desc').textbox('setValue', '');
-    $('#buildDate').datebox('setValue', '');
+    $('#name').textbox('setValue', '');
+    $('#code').textbox('setValue', '');
     ;
     $('#dlg').dialog('close');
 }
@@ -92,7 +80,7 @@ $(function () {
             //加载数据至表单
             $('#fm').form('load', row);
             $('#dlg').dialog({
-                title: '修改基金',
+                title: '修改指数',
                 iconCls: 'update',
                 closed: false,
                 top: $(window).height() / 4,
@@ -101,80 +89,36 @@ $(function () {
                 onClose: function () {
                     $('#name').textbox('setValue', '');
                     $('#code').textbox('setValue', '');
-                    $('#scope').textbox('setValue', '');
-                    $('#buildDate').textbox('setValue', '2020-01-01');
                 }
             });
 
-            url = "/fund/save?id=" + row.id;
+            url = "/index/save?id=" + row.id;
         }
     })
 });
 
 /**
- * 保存基金信息
+ * 保存指数信息
  */
 function saveData() {
     $('#fm').form('submit', {
         url: url,
         onSubmit: function () {
-            if ($('#fundName').val() === null || $('#fundName').val() === '') {
+            if ($('#name').val() === null || $('#name').val() === '') {
                 $.messager.alert({
                     title: '系统提示',
-                    msg: '请输入基金名称',
+                    msg: '请输入指数名称',
                     icon: 'error',
                     top: $(window).height() / 4
                 });
 
                 return false;
             }
-            if ($('#outsideFund').val() === null || $('#outsideFund').val()
+            if ($('#code').val() === null || $('#code').val()
                 === '') {
                 $.messager.alert({
                     title: '系统提示',
-                    msg: '请输入基金代码（场外）',
-                    icon: 'error',
-                    top: $(window).height() / 4
-                });
-
-                return false;
-            }
-            if ($('#insideFund').val() === null || $('#insideFund').val()
-                === '') {
-                $.messager.alert({
-                    title: '系统提示',
-                    msg: '请输入基金代码（场内）',
-                    icon: 'error',
-                    top: $(window).height() / 4
-                });
-
-                return false;
-            }
-            if ($('#scope').val() === null || $('#scope').val() === '') {
-                $.messager.alert({
-                    title: '系统提示',
-                    msg: '请输入基金规模',
-                    icon: 'error',
-                    top: $(window).height() / 4
-                });
-
-                return false;
-            }
-            if ($('#desc').val() === null || $('#desc').val() === '') {
-                $.messager.alert({
-                    title: '系统提示',
-                    msg: '请输入基金描述',
-                    icon: 'error',
-                    top: $(window).height() / 4
-                });
-
-                return false;
-            }
-            if ($('#buildDate').textbox() === null || $('#buildDate').textbox()
-                === '') {
-                $.messager.alert({
-                    title: '系统提示',
-                    msg: '请输入基金成立时间',
+                    msg: '请输入指数code',
                     icon: 'error',
                     top: $(window).height() / 4
                 });
@@ -210,7 +154,7 @@ function saveData() {
 /**
  * 删除用户信息
  */
-function deleteFund() {
+function deleteIndex() {
     var selections = $('#dg').datagrid('getSelections');
     if (selections.length < 1) {
         $.messager.alert({
@@ -233,7 +177,7 @@ function deleteFund() {
                 }
                 var ids = idsAr.join(",");
                 $.ajax({
-                    url: '/fund/delete',
+                    url: '/index/delete',
                     dataType: 'json',
                     type: 'post',
                     data: {

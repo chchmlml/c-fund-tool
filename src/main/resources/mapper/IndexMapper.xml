@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="io.haicheng.cfundtool.mapper.IndexMapper">
+  <resultMap id="BaseResultMap" type="io.haicheng.cfundtool.pojo.Index">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER"/>
+    <result column="name" property="name" jdbcType="VARCHAR"/>
+    <result column="code" property="code" jdbcType="VARCHAR"/>
+  </resultMap>
+
+  <insert id="saveIndex" useGeneratedKeys="true" keyProperty="id"
+    parameterType="io.haicheng.cfundtool.pojo.Index">
+        INSERT INTO `index`
+        (`name`, `code`)
+        VALUES (#{name}, #{code})
+    </insert>
+
+  <select id="getIndexList" resultMap="BaseResultMap">
+    SELECT id, `name`, `code`  FROM
+    `index`
+    <where>
+      <if test="name != null and name != ''">
+        `index`.name LIKE CONCAT('%', #{name} ,'%')
+      </if>
+    </where>
+    LIMIT #{offSet}, #{pageRow}
+  </select>
+
+  <select id="getIndexCount" resultType="java.lang.Integer">
+    SELECT
+    COUNT(*)
+    FROM
+    `index`
+    <where>
+      <if test="name != null and name != ''">
+        `index`.name LIKE CONCAT('%', #{name} ,'%')
+      </if>
+    </where>
+  </select>
+
+  <update id="updateIndex" parameterType="io.haicheng.cfundtool.pojo.Index">
+    UPDATE `index`
+    <set>
+      <if test="name != '' and name != null">
+        name = #{name},
+      </if>
+      <if test="code != '' and code != null">
+        `code` = #{code},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <select id="getIndexById" resultMap="BaseResultMap">
+        SELECT id,`name`,`code` FROM
+            `index`
+        WHERE
+            id = #{id}
+    </select>
+
+  <select id="getIndexByCode" resultMap="BaseResultMap">
+        SELECT id,`name`,`code` FROM
+            `index`
+        WHERE
+            `code` = #{code}
+    </select>
+
+  <delete id="deleteIndex" parameterType="java.lang.Integer">
+        DELETE FROM
+        `index`
+        WHERE id = #{id}
+    </delete>
+
+</mapper>

@@ -1,22 +1,23 @@
 package io.haicheng.cfundtool.controller;
 
 import io.haicheng.cfundtool.domain.ServiceVO;
-import io.haicheng.cfundtool.pojo.Fund;
-import io.haicheng.cfundtool.service.FundService;
+import io.haicheng.cfundtool.pojo.Deal;
+import io.haicheng.cfundtool.service.DealService;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @description 基金Controller控制器
+ * @description 交易Controller控制器
  */
 @RestController
-@RequestMapping("/fund")
-public class FundController {
+@RequestMapping("/deal")
+public class DealController {
 
     @Autowired
-    private FundService service;
+    private DealService service;
 
     /**
      * 分页查询供应商
@@ -36,7 +37,7 @@ public class FundController {
      * @return
      */
     @RequestMapping("/save")
-    public ServiceVO save(Fund fund) {
+    public ServiceVO save(Deal fund) {
         return service.save(fund);
     }
 
@@ -48,5 +49,15 @@ public class FundController {
     @RequestMapping("/delete")
     public ServiceVO delete(String ids) {
         return service.delete(ids);
+    }
+
+    /**
+     * 查询下拉框客户信息
+     * @param q 客户名称
+     * @return
+     */
+    @RequestMapping("/getComboboxList")
+    public List<Map> getComboboxList(String q) {
+        return service.getComboboxList(q);
     }
 }
