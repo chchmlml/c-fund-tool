@@ -10,20 +10,12 @@ package io.haicheng.cfundtool.service;
  */
 
 import io.haicheng.cfundtool.domain.ServiceVO;
-import io.haicheng.cfundtool.pojo.Index;
+import io.haicheng.cfundtool.pojo.IndexDailyReport;
 import java.util.Map;
 
-public interface IndexService {
+public interface IndexDailyReportService {
 
     Map<String,Object> list(Integer page, Integer rows, String name);
 
-    ServiceVO save(Index indx);
-
-    ServiceVO saveByCode(Index indx);
-
-    ServiceVO get(Integer id);
-
-    Index getByCode(String code);
-
-    ServiceVO delete(String ids);
+    ServiceVO save(IndexDailyReport indx);
 }

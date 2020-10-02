@@ -19,6 +19,12 @@ public class IndexDailyReport {
     @Column(name = "index_id")
     private Integer indexId;
 
+    @Column(name = "index_name")
+    private String indexName;
+
+    @Column(name = "index_code")
+    private String indexCode;
+
     /**
      * 日期
      */
@@ -27,31 +33,25 @@ public class IndexDailyReport {
     /**
      * 盈利收益率
      */
-    @Column(name = "EP")
-    private Float ep;
+    private Double ep;
 
     /**
      * 市盈率
      */
-    @Column(name = "PE")
-    private Float pe;
+    private Double pe;
 
     /**
      * 市净率
      */
-    @Column(name = "PB")
-    private Float pb;
+    private Double pb;
 
     /**
      * 股息率
      */
-    @Column(name = "DYR")
-    private Float dyr;
+    private Double dyr;
 
     /**
      * 净资产收益率
      */
-    @Column(name = "ROE")
-    private Float roe;
-
+    private Double roe;
 }

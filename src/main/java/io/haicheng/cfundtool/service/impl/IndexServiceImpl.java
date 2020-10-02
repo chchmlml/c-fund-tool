@@ -64,6 +64,11 @@ public class IndexServiceImpl implements IndexService {
     }
 
     @Override
+    public Index getByCode(String code) {
+        return indexMapper.getIndexByCode(code);
+    }
+
+    @Override
     public ServiceVO delete(String ids) {
         String[] idArray = ids.split(",");
         for (String id : idArray) {

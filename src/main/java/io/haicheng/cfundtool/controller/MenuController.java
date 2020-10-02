@@ -99,7 +99,7 @@ public class MenuController {
                 .text("数据报表")
                 .iconCls("menu-2")
                 .state("closed")
-                .children(Arrays.asList(index, report))
+                .children(Arrays.asList(index2))
                 .build();
 
         // ==================== level 1-3 ========================
