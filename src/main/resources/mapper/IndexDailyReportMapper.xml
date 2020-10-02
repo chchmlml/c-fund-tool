@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="io.haicheng.cfundtool.mapper.IndexDailyReportMapper">
+  <resultMap id="BaseResultMap" type="io.haicheng.cfundtool.pojo.IndexDailyReport">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER"/>
+    <result column="index_id" property="indexId" jdbcType="INTEGER"/>
+    <result column="date" property="date" jdbcType="VARCHAR"/>
+    <result column="index_name" property="indexName" jdbcType="VARCHAR"/>
+    <result column="index_code" property="indexCode" jdbcType="VARCHAR"/>
+    <result column="ep" property="ep" jdbcType="DOUBLE"/>
+    <result column="pe" property="pe" jdbcType="DOUBLE"/>
+    <result column="pb" property="pb" jdbcType="DOUBLE"/>
+    <result column="dyr" property="dyr" jdbcType="DOUBLE"/>
+    <result column="roe" property="roe" jdbcType="DOUBLE"/>
+  </resultMap>
+
+  <insert id="saveReport" useGeneratedKeys="true" keyProperty="id"
+    parameterType="io.haicheng.cfundtool.pojo.IndexDailyReport">
+        INSERT INTO index_daily_report
+        ( `index_id`, `date`, ep,pe,pb,dyr,roe)
+        VALUES (#{indexId}, #{date},#{ep}, #{pe}, #{pb}, #{dyr}, #{roe})
+    </insert>
+
+  <select id="getReportList" resultMap="BaseResultMap">
+    SELECT index_daily_report.id AS id, `index_id`,index.name AS index_name, index.code AS index_code, `date`,
+    ep,pe,pb,dyr,roe FROM
+    index_daily_report
+    LEFT JOIN `index` ON `index`.id = index_daily_report.index_id
+    <where>
+      <if test="name != null and name != ''">
+        `index`.name LIKE CONCAT('%', #{name} ,'%')
+      </if>
+    </where>
+    ORDER BY `date` DESC
+    LIMIT #{offSet}, #{pageRow}
+  </select>
+
+  <select id="getReportCount" resultType="java.lang.Integer">
+    SELECT count(*) FROM
+    index_daily_report
+    LEFT JOIN `index` ON `index`.id = index_daily_report.index_id
+    <where>
+      <if test="name != null and name != ''">
+        `index`.name LIKE CONCAT('%', #{name} ,'%')
+      </if>
+    </where>
+  </select>
+
+  <update id="updateReport" parameterType="io.haicheng.cfundtool.pojo.IndexDailyReport">
+    UPDATE index_daily_report
+    <set>
+      <if test="indexId != '' and indexId != null">
+        index_id = #{indexId},
+      </if>
+      <if test="date != null">
+        `date` = #{date},
+      </if>
+      <if test="ep != '' and ep != null">
+        ep = #{ep},
+      </if>
+      <if test="pe != '' and pe != null">
+        pe = #{pe},
+      </if>
+      <if test="pb != '' and pb != null">
+        `pb` = #{pb},
+      </if>
+      <if test="dyr != '' and dyr != null">
+        `dyr` = #{dyr},
+      </if>
+      <if test="roe != '' and roe != null">
+        `roe` = #{roe},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <select id="getReportByCodeAndDate" resultMap="BaseResultMap">
+        SELECT `index_daily_report`.id AS id, `index_id`, `date`, ep,pe,pb,dyr,roe FROM
+            `index_daily_report`
+        LEFT JOIN `index` ON `index`.id = index_daily_report.index_id
+        WHERE
+            `index`.`code` = #{code} AND `index_daily_report`.`date` = #{date}
+        LIMIT 1
+    </select>
+
+  <delete id="deleteReport" parameterType="java.lang.Integer">
+        DELETE FROM
+        index_daily_report
+        WHERE id = #{id}
+    </delete>
+
+</mapper>
