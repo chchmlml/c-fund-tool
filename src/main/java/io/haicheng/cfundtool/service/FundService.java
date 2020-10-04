@@ -21,5 +21,7 @@ public interface FundService {
 
     ServiceVO get(Integer id);
 
+    Fund getFundByOutsideFund(String code);
+
     ServiceVO delete(String ids);
 }

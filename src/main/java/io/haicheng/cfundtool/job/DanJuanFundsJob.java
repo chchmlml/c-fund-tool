@@ -1,13 +1,18 @@
 package io.haicheng.cfundtool.job;
 
-import cn.hutool.http.HttpUtil;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import io.haicheng.cfundtool.api.DanjuanApi;
+import io.haicheng.cfundtool.api.response.DanjuanResponse;
+import io.haicheng.cfundtool.api.response.DanjuanResponseFund;
+import io.haicheng.cfundtool.api.response.DanjuanResponseFundDesc;
+import io.haicheng.cfundtool.api.response.DanjuanResponseValuations;
+import io.haicheng.cfundtool.api.response.DanjuanResponseValuations.Valuations;
+import io.haicheng.cfundtool.pojo.Fund;
 import io.haicheng.cfundtool.pojo.Index;
 import io.haicheng.cfundtool.pojo.IndexDailyReport;
+import io.haicheng.cfundtool.service.FundService;
 import io.haicheng.cfundtool.service.IndexDailyReportService;
 import io.haicheng.cfundtool.service.IndexService;
 import io.haicheng.cfundtool.utils.DateTimeUtil;
-import io.haicheng.cfundtool.utils.JsonUtil;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +31,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class DanJuanFundsJob {
 
-    private final static String url = "https://danjuanfunds.com/djapi/fundx/activity/user/vip_valuation/show/detail?source=lsd";
+
+    @Autowired
+    FundService fundService;
 
     @Autowired
     IndexService indexService;
@@ -41,11 +48,39 @@ public class DanJuanFundsJob {
     }
 
     private void run() {
-        String result = HttpUtil.get(url);
-        DanjuanData data = JsonUtil.string2Obj(result, DanjuanData.class);
-        if (data.resultCode.equals(0)) {
-            List<Valuations> valuations = data.getData().getValuations();
+        DanjuanResponse<DanjuanResponseValuations> response = DanjuanApi.getIndexCollect();
+        if (response.getResultCode().equals(0)) {
+            List<Valuations> valuations = response.getData().getValuations();
             valuations.forEach(v -> {
+                //更新基金
+                if (null != v.getOutsideFund()) {
+
+                    Fund fundResponse = fundService.getFundByOutsideFund(v.getOutsideFund());
+                    if (null == fundResponse) {
+                        DanjuanResponse<DanjuanResponseFund> responseFund = DanjuanApi.getFundDetail(
+                                v.getOutsideFund());
+
+                        if (responseFund.getResultCode().equals(0)) {
+                            Fund fund = new Fund();
+                            fund.setFundName((null != responseFund.getData().getFdFullName()) ? responseFund.getData()
+                                    .getFdFullName() : "");
+                            fund.setOutsideFund((null != v.getOutsideFund()) ? v.getOutsideFund() : "");
+                            fund.setInsideFund((null != v.getInsideFund()) ? v.getInsideFund() : "");
+                            fund.setScope((null != responseFund.getData().getTotshare()) ? responseFund.getData()
+                                    .getTotshare() : "");
+                            fund.setBuildDate((null != responseFund.getData().getFoundDate()) ? responseFund.getData()
+                                    .getFoundDate() : "");
+                            DanjuanResponse<DanjuanResponseFundDesc> responseFundDesc = DanjuanApi.getFundDetailDesc(
+                                    v.getOutsideFund());
+                            if (responseFundDesc.getResultCode().equals(0)) {
+                                fund.setDesc((null != responseFundDesc.getData().getFundCompany())
+                                        ? responseFundDesc.getData().getFundCompany().trim() : "");
+                            }
+                            fundService.save(fund);
+                        }
+                    }
+                }
+
                 //更新指数
                 Index index = new Index();
                 index.setName(v.getIndexName());
@@ -53,41 +88,41 @@ public class DanJuanFundsJob {
                 indexService.saveByCode(index);
                 //更新指数数据
                 IndexDailyReport report = new IndexDailyReport();
-                if(null != data.data.getTime()){
-                    report.setDate(data.data.getTime());
+                if (null != response.getData().getTime()) {
+                    report.setDate(response.getData().getTime());
                 }
 
                 report.setIndexId(index.getId());
                 report.setIndexCode(index.getCode());
 
-                if(null != v.getProfitYield()){
+                if (null != v.getProfitYield()) {
                     report.setEp(v.getProfitYield());
-                } else if(null != v.getPe()){
+                } else if (null != v.getPe()) {
                     String pe = String.format("%.4f", 1 / v.getPe());
                     report.setEp(Double.valueOf(pe));
                 } else {
                     report.setEp(0.0);
                 }
 
-                if(null != v.getPe()){
+                if (null != v.getPe()) {
                     report.setPe(v.getPe());
                 } else {
                     report.setPe(0.0);
                 }
 
-                if(null != v.getPb()){
+                if (null != v.getPb()) {
                     report.setPb(v.getPb());
                 } else {
                     report.setPb(0.0);
                 }
 
-                if(null != v.getDividendYield()){
+                if (null != v.getDividendYield()) {
                     report.setDyr(v.getDividendYield());
                 } else {
                     report.setDyr(0.0);
                 }
 
-                if(null != v.getRoe()){
+                if (null != v.getRoe()) {
                     report.setRoe(v.getRoe());
                 } else {
                     report.setRoe(0.0);
@@ -95,83 +130,5 @@ public class DanJuanFundsJob {
                 indexDailyReportService.save(report);
             });
         }
-    }
-
-    @lombok.Data
-    public static class Valuations {
-
-        private Integer id;
-
-        @JsonProperty(value = "relation_id")
-        private Integer relationId;
-        /**
-         * 指数估值说明： 1：估值较低，适合开始定投的品种 2：估值适中，可以观望 3：估值较高，谨慎投资
-         */
-
-        @JsonProperty(value = "valuation_status")
-        private String valuationStatus;
-        /**
-         * 指数名称
-         */
-        @JsonProperty(value = "index_name")
-        private String indexName;
-        /**
-         * 指数代码
-         */
-        @JsonProperty(value = "index_code")
-        private String indexCode;
-        /**
-         * 市盈率
-         */
-        private Double pe;
-        /**
-         * 市净率
-         */
-        private Double pb;
-        /**
-         * 场内基金
-         */
-        @JsonProperty(value = "inside_fund")
-        private String insideFund;
-
-        /**
-         * 场外基金
-         */
-        @JsonProperty(value = "outside_fund")
-        private String outsideFund;
-        /**
-         * 净资产收益率
-         */
-        private Double roe;
-        /**
-         * 股息率
-         */
-        @JsonProperty(value = "dividend_yield")
-        private Double dividendYield;
-        /**
-         * 盈利收益率
-         */
-        @JsonProperty(value = "profit_yield")
-        private Double profitYield;
-    }
-
-    @lombok.Data
-    public static class Data {
-
-        private Integer id;
-        private String periods;
-        private String status;
-        private String time;
-        private String comment;
-        private String grade;
-        private List<Valuations> valuations;
-    }
-
-    @lombok.Data
-    public static class DanjuanData {
-
-        private Data data;
-        @JsonProperty(value = "result_code")
-        private Integer resultCode;
     }
 }

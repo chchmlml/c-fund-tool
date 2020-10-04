@@ -9,7 +9,9 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface FundMapper extends MyMapper<Fund> {
 
-    List<Fund> getFundList(@Param("offSet") Integer offSet, @Param("pageRow") Integer pageRow, @Param("name") String name);
+    List<Fund> getFundList(@Param("offSet") Integer offSet,
+            @Param("pageRow") Integer pageRow,
+            @Param("name") String name);
 
     Integer getFundCount(@Param("name") String name);
 
@@ -18,6 +20,8 @@ public interface FundMapper extends MyMapper<Fund> {
     Integer updateFund(Fund fund);
 
     Fund getFundById(Integer id);
+
+    Fund getFundByOutsideFund(String outsideFund);
 
     Integer deleteFund(Integer id);
 

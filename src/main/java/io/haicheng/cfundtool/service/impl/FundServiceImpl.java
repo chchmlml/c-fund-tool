@@ -52,6 +52,11 @@ public class FundServiceImpl implements FundService {
     }
 
     @Override
+    public Fund getFundByOutsideFund(String code) {
+        return fundMapper.getFundByOutsideFund(code);
+    }
+
+    @Override
     public ServiceVO delete(String ids) {
         String[] idArray = ids.split(",");
         for (String id : idArray) {

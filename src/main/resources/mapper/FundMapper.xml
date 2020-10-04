@@ -78,6 +78,13 @@
             id = #{id}
     </select>
 
+  <select id="getFundByOutsideFund" resultMap="BaseResultMap">
+        SELECT id,`fund_name`, `outside_fund`, `inside_fund`, `scope`, `desc`, `build_date` FROM
+            fund
+        WHERE
+            outside_fund = #{outsideFund}
+    </select>
+
   <delete id="deleteFund" parameterType="java.lang.Integer">
         DELETE FROM
         fund

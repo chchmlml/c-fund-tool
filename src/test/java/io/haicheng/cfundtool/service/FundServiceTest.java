@@ -34,7 +34,7 @@ public class FundServiceTest {
     @Test
     public void testSave() {
         Fund fund = new Fund();
-        fund.setScope(10000);
+        fund.setScope("10000");
         fund.setBuildDate(DateTimeUtil.getCurrentDateStr());
 
         fundService.save(fund);

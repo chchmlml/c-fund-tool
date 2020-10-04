@@ -21,7 +21,7 @@ public class Fund {
     @Column(name = "inside_fund")
     private String insideFund;
 
-    private Integer scope;
+    private String scope;
 
     private String desc;
 
