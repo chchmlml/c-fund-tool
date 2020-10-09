@@ -18,4 +18,6 @@ public interface IndexDailyReportService {
     Map<String,Object> list(Integer page, Integer rows, String name);
 
     ServiceVO save(IndexDailyReport indx);
+
+    IndexDailyReport getReportByCodeAndDate(String code, String date);
 }

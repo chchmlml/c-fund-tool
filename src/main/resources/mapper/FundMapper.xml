@@ -83,6 +83,7 @@
             fund
         WHERE
             outside_fund = #{outsideFund}
+        LIMIT 1
     </select>
 
   <delete id="deleteFund" parameterType="java.lang.Integer">

@@ -35,7 +35,8 @@ public class DealServiceImpl implements DealService {
     @Override
     public Map<String, Object> list(Integer page, Integer rows, String name) {
         Map<String, Object> map = new HashMap<>();
-        page = page == 0 ? 1 : page;
+        page = (null == page || page == 0) ? 1 : page;
+        rows = (null == rows || rows == 0) ? 20 : rows;
         int offSet = (page - 1) * rows;
         List<Deal> funds = dealMapper.getDealList(offSet, rows, name);
         map.put("total", dealMapper.getDealCount(name));

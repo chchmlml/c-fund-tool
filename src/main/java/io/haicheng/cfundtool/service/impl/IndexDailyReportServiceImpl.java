@@ -28,7 +28,8 @@ public class IndexDailyReportServiceImpl implements IndexDailyReportService {
     @Override
     public Map<String, Object> list(Integer page, Integer rows, String name) {
         Map<String, Object> map = new HashMap<>();
-        page = page == 0 ? 1 : page;
+        page = (null == page || page == 0) ? 1 : page;
+        rows = (null == rows || rows == 0) ? 20 : rows;
         int offSet = (page - 1) * rows;
         List<IndexDailyReport> funds = indexDailyReport.getReportList(offSet, rows, name);
         map.put("total", indexDailyReport.getReportCount(name));
@@ -48,4 +49,8 @@ public class IndexDailyReportServiceImpl implements IndexDailyReportService {
         return new ServiceVO<>(SuccessCode.SUCCESS_CODE, SuccessCode.SUCCESS_MESS);
     }
 
+    @Override
+    public IndexDailyReport getReportByCodeAndDate(String code, String date) {
+        return indexDailyReport.getReportByCodeAndDate(code, date);
+    }
 }
