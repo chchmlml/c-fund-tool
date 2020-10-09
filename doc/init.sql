@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.28)
 # Database: cfundtool
-# Generation Time: 2020-10-01 15:31:54 +0000
+# Generation Time: 2020-10-09 05:29:08 +0000
 # ************************************************************
 
 
@@ -58,11 +58,11 @@ DROP TABLE IF EXISTS `fund`;
 
 CREATE TABLE `fund` (
                         `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-                        `fund_name` varchar(32) DEFAULT NULL COMMENT '基金名称',
+                        `fund_name` varchar(32) NOT NULL DEFAULT '' COMMENT '基金名称',
                         `outside_fund` varchar(32) NOT NULL DEFAULT '' COMMENT '基金代码（场外）',
                         `inside_fund` varchar(32) NOT NULL DEFAULT '' COMMENT '基金代码（场内）',
-                        `scope` int(10) NOT NULL DEFAULT '0' COMMENT '基金规模',
-                        `desc` varchar(4096) NOT NULL DEFAULT '' COMMENT '基金描述',
+                        `scope` varchar(32) NOT NULL DEFAULT '' COMMENT '基金规模',
+                        `desc` text NOT NULL COMMENT '基金描述',
                         `build_date` varchar(32) NOT NULL DEFAULT '2020-01-01' COMMENT '成立时间',
                         PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='基金表';
@@ -92,11 +92,11 @@ CREATE TABLE `index_daily_report` (
                                       `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
                                       `index_id` int(11) NOT NULL COMMENT '指数id',
                                       `date` varchar(32) NOT NULL DEFAULT '2020-01-01' COMMENT '日期',
-                                      `EP` float NOT NULL DEFAULT '0.1' COMMENT '盈利收益率',
-                                      `PE` float NOT NULL DEFAULT '0.1' COMMENT '市盈率',
-                                      `PB` float NOT NULL DEFAULT '0.1' COMMENT '市净率',
-                                      `DYR` float NOT NULL DEFAULT '0.1' COMMENT '股息率',
-                                      `ROE` float NOT NULL DEFAULT '0.1' COMMENT '净资产收益率',
+                                      `ep` double NOT NULL DEFAULT '0.1' COMMENT '盈利收益率',
+                                      `pe` double NOT NULL DEFAULT '0.1' COMMENT '市盈率',
+                                      `pb` double NOT NULL DEFAULT '0.1' COMMENT '市净率',
+                                      `dyr` double NOT NULL DEFAULT '0.1' COMMENT '股息率',
+                                      `roe` double NOT NULL DEFAULT '0.1' COMMENT '净资产收益率',
                                       PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='基金数据表';
 

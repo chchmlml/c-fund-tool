@@ -95,8 +95,8 @@
     SELECT id, `fund_name`, `outside_fund`, `inside_fund`, `scope`, `desc`, `build_date` FROM
     fund
     <where>
-      <if test="q != null and q != ''">
-        fund.name LIKE CONCAT('%', #{q} ,'%')
+      <if test="name != null and name != ''">
+        fund.fund_name LIKE CONCAT('%', #{name} ,'%')
       </if>
     </where>
   </select>

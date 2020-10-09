@@ -25,5 +25,5 @@ public interface FundMapper extends MyMapper<Fund> {
 
     Integer deleteFund(Integer id);
 
-    List<Fund> getFundListByNameLike(String q);
+    List<Fund> getFundListByNameLike(@Param("name") String name);
 }
