@@ -8,6 +8,7 @@ import io.haicheng.cfundtool.pojo.Deal;
 import io.haicheng.cfundtool.pojo.Fund;
 import io.haicheng.cfundtool.service.DealService;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +40,11 @@ public class DealServiceImpl implements DealService {
         List<Deal> funds = dealMapper.getDealList(offSet, rows, name);
         map.put("total", dealMapper.getDealCount(name));
         map.put("rows", funds);
+        map.put("footer", Arrays.asList(new HashMap<String, Object>() {{
+            put("fundName", "统计");
+            put("amount", dealMapper.getDealAmount());
+        }}));
+
         return map;
     }
 

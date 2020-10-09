@@ -80,6 +80,7 @@ function closeDlg() {
 $(function () {
     //数据表格加载完毕后，绑定双击打开修改窗口事件
     $('#dg').datagrid({
+        showFooter: true,
         onDblClickRow: function (index, row) {
             //加载数据至表单
             $('#fm').form('load', row);

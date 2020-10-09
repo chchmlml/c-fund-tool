@@ -21,5 +21,11 @@ public class Deal {
     @Column(name = "fund_name")
     private String fundName;
 
+    @Column(name = "inside_fund")
+    private String insideFund;
+
+    @Column(name = "outside_fund")
+    private String outsideFund;
+
     private Double amount;
 }

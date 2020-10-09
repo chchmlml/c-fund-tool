@@ -11,6 +11,8 @@ public interface DealMapper extends MyMapper<Deal> {
 
     Integer getDealCount(@Param("name") String name);
 
+    Double getDealAmount();
+
     Integer saveDeal(Deal deal);
 
     Integer updateDeal(Deal deal);

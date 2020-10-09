@@ -41,13 +41,13 @@ public class MenuController {
     public String loadMenu() {
 
         // ==================== level 1-1 ========================
-        Element asset = Element.builder()
-                .id(1001)
-                .text("资产")
-                .iconCls("menu-11")
-                .state("open")
-                .attributes(Attributes.builder().url("/purchase/purchase.html").build())
-                .build();
+//        Element asset = Element.builder()
+//                .id(1001)
+//                .text("资产")
+//                .iconCls("menu-11")
+//                .state("open")
+//                .attributes(Attributes.builder().url("/purchase/purchase.html").build())
+//                .build();
         Element fund = Element.builder()
                 .id(1002)
                 .text("关注基金")
@@ -75,7 +75,7 @@ public class MenuController {
                 .text("我的资产")
                 .iconCls("menu-1")
                 .state("closed")
-                .children(Arrays.asList(asset, fund, buy, index))
+                .children(Arrays.asList(fund, buy, index))
                 .build();
 
         // ==================== level 1-2 ========================

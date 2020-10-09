@@ -41,7 +41,7 @@ public class DanJuanFundsJob {
     @Autowired
     IndexDailyReportService indexDailyReportService;
 
-    @Scheduled(cron = "*/60  * * * * ?")
+    @Scheduled(cron = "* */60  * * * ?")
     public void cronJob() {
         log.info(">>>>>>>>>>>>>>>>>>> 蛋卷基金数据 @{}", DateTimeUtil.getCurrentDateTimeStr());
         run();

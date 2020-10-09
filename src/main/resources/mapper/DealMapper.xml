@@ -9,6 +9,8 @@
     <result column="date" property="date" jdbcType="DATE"/>
     <result column="fund_id" property="fundId" jdbcType="INTEGER"/>
     <result column="fund_name" property="fundName" jdbcType="VARCHAR"/>
+    <result column="inside_fund" property="insideFund" jdbcType="VARCHAR"/>
+    <result column="outside_fund" property="outsideFund" jdbcType="VARCHAR"/>
     <result column="amount" property="amount" jdbcType="FLOAT"/>
   </resultMap>
 
@@ -21,8 +23,13 @@
     </insert>
 
   <select id="getDealList" resultMap="BaseResultMap">
-    SELECT deal.id as id, `date`, deal.fund_id AS fund_id, `amount`, fund.fund_name AS `fund_name`, `amount` FROM
-    deal
+    SELECT deal.id as id, `date`,
+        deal.fund_id AS fund_id,
+        fund.inside_fund AS inside_fund,
+        fund.outside_fund AS outside_fund,
+        `amount`, fund.fund_name AS `fund_name`,
+        `amount`
+    FROM deal
     LEFT JOIN fund ON fund.id = deal.fund_id
     <where>
       <if test="name != null and name != ''">
@@ -31,6 +38,11 @@
     </where>
     ORDER BY `date` DESC
     LIMIT #{offSet}, #{pageRow}
+  </select>
+
+  <select id="getDealAmount" resultType="java.lang.Double">
+    SELECT  SUM(`amount`) AS amount
+    FROM deal
   </select>
 
   <select id="getDealCount" resultType="java.lang.Integer">

@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>基金管理</title>
-  <link rel="stylesheet" type="text/css" href="../static/easyui/themes/default/easyui.css" />
-  <link rel="stylesheet" type="text/css" href="../static/easyui/themes/icon.css" />
-  <link rel="stylesheet" type="text/css" href="../static/css/deal.css" />
+  <link rel="stylesheet" type="text/css" href="../static/easyui/themes/default/easyui.css"/>
+  <link rel="stylesheet" type="text/css" href="../static/easyui/themes/icon.css"/>
+  <link rel="stylesheet" type="text/css" href="../static/css/deal.css"/>
   <script type="text/javascript" src="../static/easyui/jquery.min.js"></script>
   <script type="text/javascript" src="../static/easyui/jquery.easyui.min.js"></script>
   <script type="text/javascript" src="../static/easyui/locale/easyui-lang-zh_CN.js"></script>
@@ -14,13 +14,14 @@
 <body>
 <table id="dg" class="easyui-datagrid" fit="true" fitColumns="true" pagination="true" rownumbers="true"
        singleSelect="false" url="/deal/list" pageList="[30,40,50]" pageSize="30" toolbar="#tb" striped="true"
-       title="基金管理">
+       title="基金管理" showFooter="true">
   <thead>
   <tr>
     <th field="id" hidden="true">id</th>
-    <th field="date"  align="center">购买日期</th>
-    <th field="fundId" hidden="true">fundId</th>
-    <th field="fundName"  align="center">基金名称</th>
+    <th field="date" align="center">购买日期</th>
+    <th field="outsideFund">基金代码（场外）</th>
+    <th field="insideFund">基金代码（场内）</th>
+    <th field="fundName" align="center">基金名称</th>
     <th field="amount" align="center">购买金额</th>
   </tr>
   </thead>
@@ -31,7 +32,8 @@
     <a href="javascript:openDealAddDialog()" class="easyui-linkbutton" iconCls="add" plain="true">添加</a>
     <a href="javascript:openDealModifyDialog()" class="easyui-linkbutton" iconCls="update" plain="true">修改</a>
     <a href="javascript:deletedeal()" class="easyui-linkbutton" iconCls="delete" plain="true">删除</a>
-    &nbsp;基金名称：&nbsp;<input type="text" id="s_name" onkeydown="if(event.keyCode === 13) searchdeal()"/>
+    &nbsp;基金名称：&nbsp;<input type="text" id="s_name" onkeydown="if(event.keyCode === 13){searchdeal()
+}"/>
     <a href="javascript:searchdeal()" class="easyui-linkbutton" iconCls="search" plain="true">搜索</a>
   </div>
 </div>
@@ -41,15 +43,15 @@
     <table cellspacing="8px">
       <tr>
         <td>购买日期:</td>
-        <td><input id="date" name="date" type="text" class="easyui-datebox" required="required"> </td>
+        <td><input id="date" name="date" type="text" class="easyui-datebox" required="required"></td>
       </tr>
       <tr>
         <td>基金:</td>
-        <td><select class="easyui-combobox" id="fundId" name="fundId" panelHeight="auto" /></td>
+        <td><select class="easyui-combobox" id="fundId" name="fundId" panelHeight="auto"/></td>
       </tr>
       <tr>
         <td>购买金额:</td>
-        <td><input id="amount" name="amount" type="text"  data-options="precision:2" class="easyui-numberbox" /></td>
+        <td><input id="amount" name="amount" type="text" data-options="precision:2" class="easyui-numberbox"/></td>
       </tr>
     </table>
   </form>
