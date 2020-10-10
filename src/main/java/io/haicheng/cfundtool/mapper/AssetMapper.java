@@ -3,6 +3,7 @@ package io.haicheng.cfundtool.mapper;
 import io.haicheng.cfundtool.pojo.Asset;
 import io.haicheng.cfundtool.utils.MyMapper;
 import java.util.List;
+import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -20,4 +21,6 @@ public interface AssetMapper extends MyMapper<Asset> {
     Asset getById(Integer id);
 
     Integer deleteAsset(Integer id);
+
+    List<Map<String, Object>> getDataCharts();
 }

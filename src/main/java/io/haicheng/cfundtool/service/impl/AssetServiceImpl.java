@@ -60,4 +60,9 @@ public class AssetServiceImpl implements AssetService {
         }
         return new ServiceVO<>(SuccessCode.SUCCESS_CODE, SuccessCode.SUCCESS_MESS);
     }
+
+    @Override
+    public List<Map<String, Object>> getDataCharts() {
+        return assetMapper.getDataCharts();
+    }
 }

@@ -7,7 +7,7 @@ $(document).ready(function () {
         title: '首页',
         closable: false,
         iconCls: 'icon-home',
-        content: '<iframe scrolling="auto" height="99%" width="99.7%" frameborder="no" border="0"marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes" src="/asset/deal.html"></iframe>'
+        content: '<iframe scrolling="auto" height="99%" width="99.7%" frameborder="no" border="0"marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes" src="/dashboard.html"></iframe>'
     });
 
     // 加载菜单

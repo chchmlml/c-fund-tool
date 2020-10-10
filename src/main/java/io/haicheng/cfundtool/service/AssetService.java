@@ -11,15 +11,18 @@ package io.haicheng.cfundtool.service;
 
 import io.haicheng.cfundtool.domain.ServiceVO;
 import io.haicheng.cfundtool.pojo.Asset;
+import java.util.List;
 import java.util.Map;
 
 public interface AssetService {
 
-    Map<String,Object> list(Integer page, Integer rows, String name);
+    Map<String, Object> list(Integer page, Integer rows, String name);
 
     ServiceVO save(Asset asset);
 
     ServiceVO get(Integer id);
 
     ServiceVO delete(String ids);
+
+    List<Map<String, Object>> getDataCharts();
 }

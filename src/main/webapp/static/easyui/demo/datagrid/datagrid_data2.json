@@ -13,3 +13,13 @@
 	{"unitcost":19.80,"listprice":60.40,"productid":"Average:"},
 	{"unitcost":198.00,"listprice":604.00,"productid":"Total:"}
 ]}
+
+
+
+
+curl -H "Content-Type: application/json" -X POST -d '{"action_type":30104,"profile":{"action_type":"30104","detail":[{"querydate":"20201010","customer_id":7057359202}]},"message_category":"AccountAndCampaignOperations","from":"BP","id":10001}' "http://sfst.tenma.biz.weibo.com:8088/?advertiser_id=7057359202"
+
+
+	curl -L -X POST 'http://sfst.tenma.biz.weibo.com:8088' \
+-H 'Content-Type: text/plain' \
+--data-raw '{"action_type":30104,"profile":{"action_type":"30104","detail":[{"querydate":"20201010","customer_id":2608812381}]},"message_category":"AccountAndCampaignOperations","from":"BP","id":10001}'

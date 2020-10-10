@@ -9,6 +9,7 @@
     <result column="date" property="date" jdbcType="VARCHAR"/>
     <result column="item_name" property="itemName" jdbcType="VARCHAR"/>
     <result column="item_amount" property="itemAmount" jdbcType="DOUBLE"/>
+    <result column="total" property="total" jdbcType="DOUBLE"/>
   </resultMap>
 
   <insert id="save" useGeneratedKeys="true" keyProperty="id"
@@ -60,6 +61,10 @@
             `asset`
         WHERE
             id = #{id}
+    </select>
+
+  <select id="getDataCharts" resultType="java.util.Map">
+       select `date`,sum(item_amount) as total from asset group by `date`
     </select>
 
   <delete id="deleteAsset" parameterType="java.lang.Integer">
