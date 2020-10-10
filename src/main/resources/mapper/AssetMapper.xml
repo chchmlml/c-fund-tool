@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="io.haicheng.cfundtool.mapper.AssetMapper">
+  <resultMap id="BaseResultMap" type="io.haicheng.cfundtool.pojo.Asset">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER"/>
+    <result column="date" property="date" jdbcType="VARCHAR"/>
+    <result column="item_name" property="itemName" jdbcType="VARCHAR"/>
+    <result column="item_amount" property="itemAmount" jdbcType="DOUBLE"/>
+  </resultMap>
+
+  <insert id="save" useGeneratedKeys="true" keyProperty="id"
+    parameterType="io.haicheng.cfundtool.pojo.Asset">
+        INSERT INTO `asset`
+        (`date`, `item_name`, `item_amount`)
+        VALUES (#{date}, #{itemName}, #{itemAmount})
+    </insert>
+
+  <select id="getList" resultMap="BaseResultMap">
+    SELECT id, `date`, `item_name`, `item_amount`  FROM
+    `asset`
+    <where>
+      <if test="name != null and name != ''">
+        `asset`.item_name LIKE CONCAT('%', #{name} ,'%')
+      </if>
+    </where>
+    LIMIT #{offSet}, #{pageRow}
+  </select>
+
+  <select id="getCount" resultType="java.lang.Integer">
+    SELECT COUNT(*)  FROM
+    `asset`
+    <where>
+      <if test="name != null and name != ''">
+        `asset`.item_amount LIKE CONCAT('%', #{name} ,'%')
+      </if>
+    </where>
+  </select>
+
+  <update id="update" parameterType="io.haicheng.cfundtool.pojo.Asset">
+    UPDATE `asset`
+    <set>
+      <if test="date != '' and date != null">
+        `date` = #{date},
+      </if>
+      <if test="itemName != '' and itemName != null">
+        `item_name` = #{itemName},
+      </if>
+      <if test="itemAmount != '' and itemAmount != null">
+        `item_amount` = #{itemAmount},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <select id="getById" resultMap="BaseResultMap">
+        SELECT id, `date`, `item_name`, `item_amount` FROM
+            `asset`
+        WHERE
+            id = #{id}
+    </select>
+
+  <delete id="deleteAsset" parameterType="java.lang.Integer">
+        DELETE FROM
+        `asset`
+        WHERE id = #{id}
+    </delete>
+
+</mapper>
