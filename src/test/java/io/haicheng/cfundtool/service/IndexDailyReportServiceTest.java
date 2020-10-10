@@ -31,7 +31,7 @@ public class IndexDailyReportServiceTest {
 
     @Test
     public void testGetList() {
-        Map<String, Object> lists = service.list(null, null, null);
+        Map<String, Object> lists = service.list(null, null, null, "2020-09-30");
         log.info("list {}", lists);
 
         Assert.assertNotNull(lists);

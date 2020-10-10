@@ -5,6 +5,7 @@ import io.haicheng.cfundtool.domain.SuccessCode;
 import io.haicheng.cfundtool.mapper.IndexDailyReportMapper;
 import io.haicheng.cfundtool.pojo.IndexDailyReport;
 import io.haicheng.cfundtool.service.IndexDailyReportService;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,12 +27,12 @@ public class IndexDailyReportServiceImpl implements IndexDailyReportService {
     IndexDailyReportMapper indexDailyReport;
 
     @Override
-    public Map<String, Object> list(Integer page, Integer rows, String name) {
+    public Map<String, Object> list(Integer page, Integer rows, String name, String date) {
         Map<String, Object> map = new HashMap<>();
         page = (null == page || page == 0) ? 1 : page;
         rows = (null == rows || rows == 0) ? 20 : rows;
         int offSet = (page - 1) * rows;
-        List<IndexDailyReport> funds = indexDailyReport.getReportList(offSet, rows, name);
+        List<IndexDailyReport> funds = indexDailyReport.getReportList(offSet, rows, name, date);
         map.put("total", indexDailyReport.getReportCount(name));
         map.put("rows", funds);
         return map;
@@ -52,5 +53,17 @@ public class IndexDailyReportServiceImpl implements IndexDailyReportService {
     @Override
     public IndexDailyReport getReportByCodeAndDate(String code, String date) {
         return indexDailyReport.getReportByCodeAndDate(code, date);
+    }
+
+    @Override
+    public List<Map> getComboboxListDate(String q) {
+        List<String> lists = indexDailyReport.getComboboxListDate();
+        List<Map> result = new ArrayList<>();
+        lists.forEach(f -> {
+            result.add(new HashMap() {{
+                put("date", f);
+            }});
+        });
+        return result;
     }
 }

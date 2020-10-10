@@ -11,13 +11,16 @@ package io.haicheng.cfundtool.service;
 
 import io.haicheng.cfundtool.domain.ServiceVO;
 import io.haicheng.cfundtool.pojo.IndexDailyReport;
+import java.util.List;
 import java.util.Map;
 
 public interface IndexDailyReportService {
 
-    Map<String,Object> list(Integer page, Integer rows, String name);
+    Map<String,Object> list(Integer page, Integer rows, String name, String date);
 
     ServiceVO save(IndexDailyReport indx);
 
     IndexDailyReport getReportByCodeAndDate(String code, String date);
+
+    List<Map> getComboboxListDate(String q);
 }

@@ -33,6 +33,9 @@
       <if test="name != null and name != ''">
         `index`.name LIKE CONCAT('%', #{name} ,'%')
       </if>
+      <if test="date != null and date != ''">
+        `index_daily_report`.`date` = #{date}
+      </if>
     </where>
     ORDER BY `date` DESC
     LIMIT #{offSet}, #{pageRow}
@@ -84,6 +87,10 @@
         WHERE
             `index`.`code` = #{code} AND `index_daily_report`.`date` = #{date}
         LIMIT 1
+    </select>
+
+  <select id="getComboboxListDate" resultType="java.lang.String">
+       select DISTINCT(`date`) from `index_daily_report`
     </select>
 
   <delete id="deleteReport" parameterType="java.lang.Integer">

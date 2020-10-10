@@ -29,8 +29,9 @@
 
 <div id="tb">
   <div>
-    &nbsp;基金名称：&nbsp;<input type="text" id="s_name" onkeydown="if(event.keyCode === 13) searchData()"/>
-    <a href="javascript:searchfund()" class="easyui-linkbutton" iconCls="search" plain="true">搜索</a>
+    日期：<select class="easyui-combobox" id="s_date" name="s_date" panelHeight="auto"/>
+    &nbsp;基金名称：&nbsp;<input type="text" id="s_name"  class="easyui-textbox" onkeydown="if(event.keyCode === 13) searchData()" />
+    <a href="javascript:searchData()" class="easyui-linkbutton" iconCls="search" plain="true">搜索</a>
   </div>
 </div>
 

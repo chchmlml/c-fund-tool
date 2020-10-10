@@ -9,7 +9,10 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface IndexDailyReportMapper extends MyMapper<IndexDailyReport> {
 
-    List<IndexDailyReport> getReportList(@Param("offSet") Integer offSet, @Param("pageRow") Integer pageRow, @Param("name") String name);
+    List<IndexDailyReport> getReportList(@Param("offSet") Integer offSet,
+            @Param("pageRow") Integer pageRow,
+            @Param("name") String name,
+            @Param("date") String date);
 
     Integer getReportCount(@Param("name") String name);
 
@@ -18,4 +21,7 @@ public interface IndexDailyReportMapper extends MyMapper<IndexDailyReport> {
     Integer updateReport(IndexDailyReport Index);
 
     IndexDailyReport getReportByCodeAndDate(String code, String date);
+
+    List<String> getComboboxListDate();
+
 }

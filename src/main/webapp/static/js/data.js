@@ -1,10 +1,11 @@
 /**
  * 根据基金名模糊查询基金信息
  */
-function searchdata() {
+function searchData() {
 
     $('#dg').datagrid('load', {
-        dataName: $('#s_name').val()
+        name: $('#s_name').textbox('getValue'),
+        date: $('#s_date').combobox('getValue')
     });
 }
 
@@ -14,15 +15,21 @@ function formatPe(val, row) {
 
 var url;
 $(function () {
+    $('#s_date').combobox({
+        mode: 'remote',
+        url: '/data/getComboboxListDate',
+        valueField: 'date',
+        textField: 'date'
+    });
 
     $('#dg').datagrid({
         fit: true,
-        fitColumns:true,
+        fitColumns: true,
         pagination: true,
         rownumbers: true,
         singleSelect: false,
         url: "/data/list",
-        pageList: [30,40,50],
+        pageList: [30, 40, 50],
         pageSize: "30",
         toolbar: "#tb",
         striped: true,
