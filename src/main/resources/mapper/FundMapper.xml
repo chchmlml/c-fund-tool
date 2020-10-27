@@ -11,20 +11,18 @@
     <result column="index_code" property="indexCode" jdbcType="VARCHAR"/>
     <result column="outside_fund" property="outsideFund" jdbcType="VARCHAR"/>
     <result column="inside_fund" property="insideFund" jdbcType="VARCHAR"/>
-    <result column="scope" property="scope" jdbcType="INTEGER"/>
-    <result column="desc" property="desc" jdbcType="VARCHAR"/>
     <result column="build_date" property="buildDate" jdbcType="DATE"/>
   </resultMap>
 
   <insert id="saveFund" useGeneratedKeys="true" keyProperty="id"
     parameterType="io.haicheng.cfundtool.pojo.Fund">
         INSERT INTO fund
-        (`fund_name`, `outside_fund`, `inside_fund`, `scope`, `desc`, `build_date`)
-        VALUES (#{fundName}, #{outsideFund},#{insideFund}, #{scope}, #{desc}, #{buildDate})
+        (`fund_name`, `outside_fund`, `inside_fund`,  `build_date`)
+        VALUES (#{fundName}, #{outsideFund},#{insideFund},  #{buildDate})
     </insert>
 
   <select id="getFundList" resultMap="BaseResultMap">
-    SELECT id, `fund_name`, `outside_fund`, `inside_fund`, `scope`, `desc`, `build_date` FROM
+    SELECT id, `fund_name`, `outside_fund`, `inside_fund`, `build_date` FROM
     fund
     <where>
       <if test="name != null and name != ''">
@@ -58,12 +56,6 @@
       <if test="insideFund != '' and insideFund != null">
         inside_fund = #{insideFund},
       </if>
-      <if test="scope != '' and scope != null">
-        scope = #{scope},
-      </if>
-      <if test="desc != '' and desc != null">
-        `desc` = #{desc},
-      </if>
       <if test="buildDate != null">
         build_date = #{buildDate,jdbcType=DATE},
       </if>
@@ -72,14 +64,14 @@
   </update>
 
   <select id="getFundById" resultMap="BaseResultMap">
-        SELECT id,`fund_name`, `outside_fund`, `inside_fund`, `scope`, `desc`, `build_date` FROM
+        SELECT id,`fund_name`, `outside_fund`, `inside_fund`,  `build_date` FROM
             fund
         WHERE
             id = #{id}
     </select>
 
   <select id="getFundByOutsideFund" resultMap="BaseResultMap">
-        SELECT id,`fund_name`, `outside_fund`, `inside_fund`, `scope`, `desc`, `build_date` FROM
+        SELECT id,`fund_name`, `outside_fund`, `inside_fund`, `build_date` FROM
             fund
         WHERE
             outside_fund = #{outsideFund}
@@ -93,7 +85,7 @@
     </delete>
 
   <select id="getFundListByNameLike" resultMap="BaseResultMap">
-    SELECT id, `fund_name`, `outside_fund`, `inside_fund`, `scope`, `desc`, `build_date` FROM
+    SELECT id, `fund_name`, `outside_fund`, `inside_fund`, `build_date` FROM
     fund
     <where>
       <if test="name != null and name != ''">

@@ -1,0 +1,9 @@
+
+1.第一次安装创建镜像并导入sql：
+docker build -t compose-mysql ./mysql
+docker run -p 13306:3306 -d compose-mysql
+
+注意：init.sql应该保持更新
+
+
+2.build项目并通过docker启动服务

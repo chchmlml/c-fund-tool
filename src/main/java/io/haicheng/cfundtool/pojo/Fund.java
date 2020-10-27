@@ -21,10 +21,6 @@ public class Fund {
     @Column(name = "inside_fund")
     private String insideFund;
 
-    private String scope;
-
-    private String desc;
-
     @Column(name = "build_date")
     private String buildDate;
 }

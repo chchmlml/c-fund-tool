@@ -49,15 +49,12 @@ public class FundServiceTest {
         fund.setFundName("ceshi-fund-save");
         fund.setOutsideFund("10001");
         fund.setInsideFund("10002");
-        fund.setScope("1亿");
-        fund.setDesc("测试desc");
         fund.setBuildDate(DateTimeUtil.getCurrentDateStr());
         fundService.save(fund);
         Assert.assertNotNull(fund.getId());
 
         String updateFundName = "ceshi-fund-update";
         fund.setFundName(updateFundName);
-        fund.setDesc("测试desc update");
         fundService.save(fund);
 
         ServiceVO updateFund = fundService.get(fund.getId());

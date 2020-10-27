@@ -66,16 +66,10 @@ public class DanJuanFundsJob {
                                     .getFdFullName() : "");
                             fund.setOutsideFund((null != v.getOutsideFund()) ? v.getOutsideFund() : "");
                             fund.setInsideFund((null != v.getInsideFund()) ? v.getInsideFund() : "");
-                            fund.setScope((null != responseFund.getData().getTotshare()) ? responseFund.getData()
-                                    .getTotshare() : "");
                             fund.setBuildDate((null != responseFund.getData().getFoundDate()) ? responseFund.getData()
                                     .getFoundDate() : "");
                             DanjuanResponse<DanjuanResponseFundDesc> responseFundDesc = DanjuanApi.getFundDetailDesc(
                                     v.getOutsideFund());
-                            if (responseFundDesc.getResultCode().equals(0)) {
-                                fund.setDesc((null != responseFundDesc.getData().getFundCompany())
-                                        ? responseFundDesc.getData().getFundCompany().trim() : "");
-                            }
                             fundService.save(fund);
                         }
                     }

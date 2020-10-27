@@ -1,10 +1,9 @@
 version: "3"
 services:
-  superfans-configcenter:
-    image: registry.api.weibo.com/weiboad/java8-pinpoint:1.0.6
-    hostname: superfans-configcenter
-    network_mode: host
+  compose-java:
+    image: java:8
+    ports:
+      - "9088:8888"
     volumes:
-      - /data0/collect:/data0/applogs
       - ./:/workspace
     command: bash /workspace/entrypoint.sh
