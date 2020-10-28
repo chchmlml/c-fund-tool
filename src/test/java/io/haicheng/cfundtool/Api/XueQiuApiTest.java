@@ -39,7 +39,7 @@ public class XueQiuApiTest {
 
     @Test
     public void testGetStocks() {
-        XueQiuResponse lists = api.getStocks();
+        XueQiuResponse lists = api.getStocks(1, 100);
         log.info("list {}", lists);
 
         Assert.assertNotNull(lists);

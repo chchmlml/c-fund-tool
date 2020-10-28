@@ -44,7 +44,7 @@ public class DanJuanFundsJob {
     @Scheduled(cron = "* */60  * * * ?")
     public void cronJob() {
         log.info(">>>>>>>>>>>>>>>>>>> 蛋卷基金数据 @{}", DateTimeUtil.getCurrentDateTimeStr());
-        run();
+//        run();
     }
 
     private void run() {

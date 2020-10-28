@@ -1,11 +1,64 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="io.haicheng.cfundtool.mapper.StockMapper" >
-  <resultMap id="BaseResultMap" type="io.haicheng.cfundtool.pojo.Stock" >
+<mapper namespace="io.haicheng.cfundtool.mapper.StockMapper">
+  <resultMap id="BaseResultMap" type="io.haicheng.cfundtool.pojo.Stock">
     <!--
       WARNING - @mbg.generated
     -->
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
+    <id column="id" property="id" jdbcType="INTEGER"/>
+    <result column="name" property="name" jdbcType="VARCHAR"/>
+    <result column="code" property="code" jdbcType="VARCHAR"/>
+    <result column="industry_code" property="industryCode" jdbcType="VARCHAR"/>
+    <result column="industry_name" property="industryName" jdbcType="VARCHAR"/>
+    <result column="pe_dynamic" property="peDynamic" jdbcType="DOUBLE"/>
+    <result column="pe_lyr" property="peLyr" jdbcType="DOUBLE"/>
+    <result column="pe_ttm" property="peTtm" jdbcType="DOUBLE"/>
+    <result column="pb" property="pb" jdbcType="DOUBLE"/>
   </resultMap>
+
+  <insert id="saveStock" useGeneratedKeys="true" keyProperty="id"
+    parameterType="io.haicheng.cfundtool.pojo.Stock">
+        INSERT INTO stock
+        (`name`, `code`, `industry_code`,  `industry_name`,  `pe_dynamic`,  `pe_lyr`,  `pe_ttm`,  `pb`)
+        VALUES (#{name}, #{code},#{industryCode},  #{industryName}, #{peDynamic}, #{peLyr},#{peTtm},  #{pb})
+    </insert>
+
+  <update id="updateStock" parameterType="io.haicheng.cfundtool.pojo.Stock">
+    UPDATE stock
+    <set>
+      <if test="name != '' and name != null">
+        `name` = #{name},
+      </if>
+      <if test="code != '' and code != null">
+        code = #{code},
+      </if>
+      <if test="industryCode != '' and industryCode != null">
+        industry_code = #{industryCode},
+      </if>
+      <if test="industryName != '' and industryName != null">
+        industry_name = #{industryName},
+      </if>
+      <if test="peDynamic != '' and peDynamic != null">
+        pe_dynamic = #{peDynamic},
+      </if>
+      <if test="peLyr != '' and peLyr != null">
+        pe_lyr = #{peLyr},
+      </if>
+      <if test="peTtm != '' and peTtm != null">
+        pe_ttm = #{peTtm},
+      </if>
+      <if test="pb != '' and pb != null">
+        pb = #{pb},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <select id="getStockByCode" resultMap="BaseResultMap">
+        SELECT id,`name`, `code`, `industry_code`,  `industry_name`,  `pe_dynamic`,  `pe_lyr`,  `pe_ttm`,  `pb` FROM
+            stock
+        WHERE
+            code = #{code}
+        LIMIT 1
+    </select>
 </mapper>

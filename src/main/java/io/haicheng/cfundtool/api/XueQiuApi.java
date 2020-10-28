@@ -45,7 +45,7 @@ public class XueQiuApi {
     /**
      * 行业apis
      */
-    public static XueQiuResponse<XueQiuResponseStocks> getStocks() {
+    public static XueQiuResponse<XueQiuResponseStocks> getStocks(Integer page, Integer size) {
 
         Map<String, Object> paramMap = new HashMap<>();
 
@@ -55,8 +55,8 @@ public class XueQiuApi {
         paramMap.put("indcode", "");
         paramMap.put("order_by", "symbol");
         paramMap.put("order", "desc");
-        paramMap.put("page", "1");
-        paramMap.put("size", "30");
+        paramMap.put("page", page);
+        paramMap.put("size", size);
         paramMap.put("only_count", "0");
         paramMap.put("current", "");
         paramMap.put("pct", "");
