@@ -103,21 +103,35 @@ public class MenuController {
                 .build();
 
         // ==================== level 1-3 ========================
-        //        Element log = Element.builder()
-        //                .id(30)
-        //                .text("日志")
-        //                .iconCls("menu-3")
-        //                .state("closed")
-        //                .children(Arrays.asList(index))
-        //                .build();
+        Element industry = Element.builder()
+                .id(3002)
+                .text("行业概况")
+                .iconCls("menu-32")
+                .state("open")
+                .attributes(Attributes.builder().url("/stock/industry.html").build())
+                .build();
+        Element stocks = Element.builder()
+                .id(3001)
+                .text("股票筛选")
+                .iconCls("menu-31")
+                .state("open")
+                .attributes(Attributes.builder().url("/stock/index.html").build())
+                .build();
 
+        Element stock = Element.builder()
+                .id(30)
+                .text("股票")
+                .iconCls("menu-3")
+                .state("closed")
+                .children(Arrays.asList(stocks, industry))
+                .build();
         // ==================== level 0 ========================
         Element system = Element.builder()
                 .id(1)
                 .text("系统菜单")
                 .iconCls("menu-plugin")
                 .state("closed")
-                .children(Arrays.asList(account, data))
+                .children(Arrays.asList(account, data, stock))
                 .build();
 
         return JsonUtil.obj2String(Arrays.asList(system));

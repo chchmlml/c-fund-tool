@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>基金管理</title>
+  <link rel="stylesheet" type="text/css" href="../static/easyui/themes/default/easyui.css"/>
+  <link rel="stylesheet" type="text/css" href="../static/easyui/themes/icon.css"/>
+  <link rel="stylesheet" type="text/css" href="../static/css/industry.css"/>
+  <script type="text/javascript" src="../static/easyui/jquery.min.js"></script>
+  <script type="text/javascript" src="../static/easyui/jquery.easyui.min.js"></script>
+  <script type="text/javascript" src="../static/easyui/locale/easyui-lang-zh_CN.js"></script>
+  <script type="text/javascript" src="../static/js/industry.js"></script>
+</head>
+<body>
+<table id="dg" class="easyui-datagrid">
+  <thead>
+  <tr>
+    <th field="industry_name">行业名称</th>
+    <th field="acount">股票数量</th>
+    <th field="pe_ttm" sortable="true">平均市盈率(TTM)</th>
+    <th field="pe_lyr" sortable="true">平均市盈率(静)</th>
+    <th field="pb" sortable="true">平均市净率</th>
+  </tr>
+  </thead>
+</table>
+
+<div id="tb">
+  <div>
+    <a href="javascript:searchData()" class="easyui-linkbutton" iconCls="search" plain="true">搜索</a>
+    &nbsp;行业名称：&nbsp;<select class="easyui-combobox" id="industry" panelHeight="auto"/> &nbsp;
+  </div>
+</div>
+</body>
+</html>

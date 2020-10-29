@@ -16,6 +16,78 @@
     <result column="pb" property="pb" jdbcType="DOUBLE"/>
   </resultMap>
 
+  <select id="getStockList" resultMap="BaseResultMap">
+    SELECT id, `name`, `code`, `industry_code`,  `industry_name`,  `pe_dynamic`,  `pe_lyr`,  `pe_ttm`,  `pb` FROM
+    stock
+    <where>
+      <if test="name != null and name != ''">
+        `stock`.name LIKE CONCAT('%', #{name} ,'%')
+      </if>
+      <if test="code != null and code != ''">
+        `stock`.code LIKE CONCAT('%', #{code} ,'%')
+      </if>
+      <if test="industryName != null and industryName != ''">
+        `stock`.industry_name = #{industryName}
+      </if>
+    </where>
+    ORDER BY `${sort}` ${order}
+    LIMIT #{offSet}, #{pageRow}
+  </select>
+
+  <select id="getStockCount" resultType="java.lang.Integer">
+    SELECT count(*) FROM
+    stock
+    <where>
+      <if test="name != null and name != ''">
+        `stock`.name LIKE CONCAT('%', #{name} ,'%')
+      </if>
+      <if test="code != null and code != ''">
+        `stock`.code = #{code}
+      </if>
+      <if test="industryName != null and industryName != ''">
+        `stock`.industry_name = #{industryName}
+      </if>
+    </where>
+  </select>
+
+  <select id="getStockIndustryList" resultType="java.lang.String">
+    SELECT DISTINCT(`industry_name`) AS industry_name FROM stock
+    <where>
+      <if test="name != null and name != ''">
+        `stock`.industry_name LIKE CONCAT('%', #{name} ,'%')
+      </if>
+    </where>
+  </select>
+
+  <select id="getIndustryList"  resultType="java.util.HashMap">
+    SELECT
+	    ANY_VALUE(`id`) AS `id`,
+      industry_name,
+      COUNT(industry_name) as acount,
+      FORMAT(SUM(pe_ttm)/COUNT(industry_name), 2) AS pe_ttm ,
+      FORMAT(SUM(pe_lyr)/COUNT(industry_name), 2) AS pe_lyr ,
+      FORMAT(SUM(pb)/COUNT(industry_name), 2) AS pb
+    FROM stock
+    GROUP BY `industry_name`
+    <if test="industryName != null and industryName != ''">
+      HAVING `stock`.industry_name = #{industryName}
+    </if>
+    ORDER BY `${sort}` ${order}
+    LIMIT #{offSet}, #{pageRow}
+  </select>
+
+  <select id="getIndustryCount" resultType="java.lang.Integer">
+    SELECT
+        COUNT(*)
+    FROM (
+      SELECT COUNT(*) FROM stock
+      GROUP BY `industry_name`
+        <if test="industryName != null and industryName != ''">
+          HAVING `stock`.industry_name = #{industryName}
+        </if>
+    ) u
+  </select>
+
   <insert id="saveStock" useGeneratedKeys="true" keyProperty="id"
     parameterType="io.haicheng.cfundtool.pojo.Stock">
         INSERT INTO stock

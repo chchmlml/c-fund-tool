@@ -2,6 +2,8 @@ package io.haicheng.cfundtool.service;
 
 import io.haicheng.cfundtool.CFundToolApplication;
 import io.haicheng.cfundtool.pojo.Stock;
+import java.util.List;
+import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
@@ -26,6 +28,33 @@ public class StockServiceTest {
     @Autowired
     private StockService service;
 
+    @Test
+    public void testGetList() {
+        Map<String, Object> lists = service.list(null, null, null, null, null, null, null);
+        log.info("list {}", lists);
+
+        Assert.assertNotNull(lists);
+        Assert.assertNotNull(lists.get("total"));
+        Assert.assertNotNull(lists.get("rows"));
+    }
+
+    @Test
+    public void testListOfIndustry() {
+        Map<String, Object> lists = service.listOfIndustry(null, null, null, null, "中药");
+        log.info("list {}", lists);
+
+        Assert.assertNotNull(lists);
+        Assert.assertNotNull(lists.get("total"));
+        Assert.assertNotNull(lists.get("rows"));
+    }
+
+    @Test
+    public void testComboboxList() {
+        List<Map> lists = service.getComboboxList("化学");
+        log.info("list {}", lists);
+
+        Assert.assertNotNull(lists);
+    }
 
     /**
      *

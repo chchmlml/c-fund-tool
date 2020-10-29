@@ -11,10 +11,28 @@ package io.haicheng.cfundtool.service;
 
 import io.haicheng.cfundtool.domain.ServiceVO;
 import io.haicheng.cfundtool.pojo.Stock;
+import java.util.List;
+import java.util.Map;
 
 public interface StockService {
+
+    Map<String, Object> list(Integer page,
+            Integer rows,
+            String sort,
+            String order,
+            String name,
+            String code,
+            String industryName);
+
+    Map<String, Object> listOfIndustry(Integer page,
+            Integer rows,
+            String sort,
+            String order,
+            String industryName);
 
     ServiceVO save(Stock stock);
 
     Stock getByCode(String code);
+
+    List<Map> getComboboxList(String q);
 }
