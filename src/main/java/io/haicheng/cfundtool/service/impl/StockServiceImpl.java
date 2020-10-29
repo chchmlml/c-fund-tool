@@ -56,7 +56,18 @@ public class StockServiceImpl implements StockService {
         Map<String, Object> map = new HashMap<>();
         page = (null == page || page == 0) ? 1 : page;
         rows = (null == rows || rows == 0) ? 20 : rows;
-        sort = (null == sort) ? "id" : StrUtil.toUnderlineCase(sort);
+        sort = (null == sort) ? "pb" : StrUtil.toUnderlineCase(sort);
+        switch (sort) {
+            case "pe_ttm":
+                sort = "FORMAT(SUM(pe_ttm)/COUNT(industry_name), 2) + 0";
+                break;
+            case "pe_lyr":
+                sort = "FORMAT(SUM(pe_lyr)/COUNT(industry_name), 2) + 0";
+                break;
+            case "pb":
+                sort = "FORMAT(SUM(pb)/COUNT(industry_name), 2) + 0";
+                break;
+        }
         order = (null == order) ? "desc" : order;
         int offSet = (page - 1) * rows;
         List<Map> funds = stockMapper.getIndustryList(offSet, rows, sort, order, industryName);

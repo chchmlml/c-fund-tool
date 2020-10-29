@@ -30,7 +30,7 @@
         `stock`.industry_name = #{industryName}
       </if>
     </where>
-    ORDER BY `${sort}` ${order}
+    ORDER BY CONVERT(`${sort}`,SIGNED) ${order}
     LIMIT #{offSet}, #{pageRow}
   </select>
 
@@ -72,7 +72,7 @@
     <if test="industryName != null and industryName != ''">
       HAVING `stock`.industry_name = #{industryName}
     </if>
-    ORDER BY `${sort}` ${order}
+    ORDER BY ${sort} ${order}
     LIMIT #{offSet}, #{pageRow}
   </select>
 

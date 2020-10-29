@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    window.setInterval("showTime()", 1);
+    // window.setInterval("showTime()", 1);
 
     //加载首页
     $('#tabs').tabs('add', {

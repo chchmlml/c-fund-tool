@@ -35,7 +35,7 @@ public class StockController {
             RequestMethod.GET})
     public Map<String, Object> industry(Integer page,
             Integer rows,
-            @RequestParam(name = "sort", defaultValue = "id") String sort,
+            @RequestParam(name = "sort", defaultValue = "pb") String sort,
             @RequestParam(name = "order", defaultValue = "desc") String order,
             @RequestParam(name = "industry", defaultValue = "") String industryName) {
         return service.listOfIndustry(page, rows, sort, order, industryName);
