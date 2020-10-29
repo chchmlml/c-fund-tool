@@ -5,6 +5,7 @@
   <title>指数管理</title>
   <link rel="stylesheet" type="text/css" href="../static/easyui/themes/bootstrap/easyui.css"/>
   <link rel="stylesheet" type="text/css" href="../static/easyui/themes/icon.css"/>
+<link rel="stylesheet" type="text/css" href="../static/css/global.css"/>
   <link rel="stylesheet" type="text/css" href="../static/css/index.css"/>
   <script type="text/javascript" src="../static/easyui/jquery.min.js"></script>
   <script type="text/javascript" src="../static/easyui/jquery.easyui.min.js"></script>
@@ -26,12 +27,11 @@
 
 <div id="tb">
   <div>
-    <a href="javascript:openIndexAddDialog()" class="easyui-linkbutton" iconCls="icon-add" plain="true">添加</a>
-    <a href="javascript:openIndexModifyDialog()" class="easyui-linkbutton" iconCls="icon-edit" plain="true">修改</a>
-    <a href="javascript:deleteIndex()" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
-    &nbsp;指数名称：&nbsp;<input type="text" id="s_name" onkeydown="if(event.keyCode === 13){searchIndex()
-}"/>
-    <a href="javascript:searchIndex()" class="easyui-linkbutton" iconCls="icon-search" plain="true">搜索</a>
+    <a href="javascript:openIndexAddDialog()" class="easyui-linkbutton" iconCls="save">添加</a>
+    <a href="javascript:openIndexModifyDialog()" class="easyui-linkbutton" iconCls="update">修改</a>
+    <a href="javascript:deleteIndex()" class="easyui-linkbutton" iconCls="delete">删除</a>
+    <input type="text" id="s_name" class="easyui-textbox" data-options="prompt:'指数名称'" />
+    <a href="javascript:searchIndex()" class="easyui-linkbutton" iconCls="search">搜索</a>
   </div>
 </div>
 
@@ -51,7 +51,7 @@
 </div>
 
 <div id="dlgTb">
-  <a href="javascript:saveData()" class="easyui-linkbutton" iconCls="icon-save">保存</a>
+  <a href="javascript:saveData()" class="easyui-linkbutton" iconCls="save">保存</a>
   <a href="javascript:closeDlg()" class="easyui-linkbutton" iconCls="icon-closed">关闭</a>
 </div>
 </body>

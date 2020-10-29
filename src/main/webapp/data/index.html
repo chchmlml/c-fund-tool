@@ -5,6 +5,7 @@
   <title>基金管理</title>
   <link rel="stylesheet" type="text/css" href="../static/easyui/themes/bootstrap/easyui.css" />
   <link rel="stylesheet" type="text/css" href="../static/easyui/themes/icon.css" />
+  <link rel="stylesheet" type="text/css" href="../static/css/global.css" />
   <link rel="stylesheet" type="text/css" href="../static/css/data.css" />
   <script type="text/javascript" src="../static/easyui/jquery.min.js"></script>
   <script type="text/javascript" src="../static/easyui/jquery.easyui.min.js"></script>
@@ -29,9 +30,9 @@
 
 <div id="tb">
   <div>
-    日期：<select class="easyui-combobox" id="s_date" name="s_date" panelHeight="auto"/>
-    &nbsp;基金名称：&nbsp;<input type="text" id="s_name"  class="easyui-textbox" onkeydown="if(event.keyCode === 13) searchData()" />
-    <a href="javascript:searchData()" class="easyui-linkbutton" iconCls="icon-search" plain="true">搜索</a>
+    <select class="easyui-combobox" id="s_date" name="s_date" panelHeight="auto" data-options="prompt:'日期'"/>
+    <input type="text" id="s_name"  class="easyui-textbox"  data-options="prompt:'基金名称'" />
+    <a href="javascript:searchData()" class="easyui-linkbutton" iconCls="search">搜索</a>
   </div>
 </div>
 
