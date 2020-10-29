@@ -26,18 +26,17 @@ BUILD_TARGET_JAR="${BUILD_TARGET_PATH}/${TARGET_VERSION}.jar"
 echo ">>> Start build ..."
 
 #!/bin/bash
+# HOST_IP="10.222.100.181"
+# if [ ! -n "$HOST_IP" ]; then
+#     VAR="eth0"
+#     HOST_IP=$(ifconfig $VAR | grep "inet addr" | awk '{ print $2}' | awk -F: '{print $2}')
+# fi
 
-HOST_IP="10.222.100.181"
-if [ ! -n "$HOST_IP" ]; then
-    VAR="eth0"
-    HOST_IP=$(ifconfig $VAR | grep "inet addr" | awk '{ print $2}' | awk -F: '{print $2}')
-fi
-
-if [ ! -n "$HOST_IP" ]; then
-    echo "can not get ip."
-    exit
-fi
-echo "local ip is $HOST_IP."
+# if [ ! -n "$HOST_IP" ]; then
+#     echo "can not get ip."
+#     exit
+# fi
+# echo "local ip is $HOST_IP."
 
 # SED_FILE="${SOURCE_ROOT}/src/main/resources/application-prod.properties"
 # WORD="spring.datasource.url=jdbc:mysql://$HOST_IP:13306/cfundtool?useSSL=false&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true"
@@ -67,5 +66,7 @@ if [[ ${IS_WEB_SERVICE} == 1 ]]; then
 fi
 
 echo ">>> start application."
-cd ./target/bin
-docker-compose up
+kill -9 `lsof -t -i:8888`
+rm -rf log.log
+nohup java -jar target/bin/app.jar --server.port=8888 --spring.profiles.active=dev  > log.log 2>&1 &
+tail -f ./log.log
