@@ -4,7 +4,7 @@
 function searchAccount() {
 
     $('#dg').datagrid('load', {
-        name: $('#s_name').val()
+        name: $('#s_name').textbox('getValue')
     });
 }
 

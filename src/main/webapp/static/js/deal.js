@@ -4,7 +4,7 @@
 function searchdeal() {
 
     $('#dg').datagrid('load', {
-        dealName: $('#s_name').val()
+        dealName: $('#s_name').textbox('getValue')
     });
 }
 

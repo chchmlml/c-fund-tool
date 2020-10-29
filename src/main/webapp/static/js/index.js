@@ -4,7 +4,7 @@
 function searchIndex() {
 
     $('#dg').datagrid('load', {
-        IndexName: $('#s_name').val()
+        IndexName: $('#s_name').textbox('getValue')
     });
 }
 

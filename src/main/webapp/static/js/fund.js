@@ -4,7 +4,7 @@
 function searchFund() {
 
     $('#dg').datagrid('load', {
-        fundName: $('#s_name').val()
+        fundName: $('#s_name').textbox('getValue')
     });
 }
 
