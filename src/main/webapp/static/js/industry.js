@@ -1,7 +1,9 @@
 function searchData() {
 
     $('#dg').datagrid('load', {
-        industry: $('#industry').combobox('getValue')
+        industry: $('#industry').combobox('getValue'),
+        profit: $('#profit').checkbox('options').checked,
+        st: $('#st').checkbox('options').checked
     });
 }
 

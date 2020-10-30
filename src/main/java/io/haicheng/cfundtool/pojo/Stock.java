@@ -1,10 +1,9 @@
 package io.haicheng.cfundtool.pojo;
 
-import javax.persistence.*;
-
-import org.springframework.stereotype.Repository;
-
+import javax.persistence.Column;
+import javax.persistence.Id;
 import lombok.Data;
+import org.springframework.stereotype.Repository;
 
 @Data
 @Repository
@@ -42,4 +41,10 @@ public class Stock {
 
     @Column(name = "pb")
     private Double pb;
+
+    @Column(name = "netprofit")
+    private Double netprofit;
+
+    @Column(name = "dy_l")
+    private Double dy_l;
 }

@@ -64,10 +64,12 @@ public class XueqiuJob {
                     stockSave.setIndustryCode((null == stock.getIndcode()) ? "" : stock.getIndcode());
                     stockSave.setIndustryName(industryMap.containsKey(stockSave.getIndustryCode()) ? industryMap.get(
                             stockSave.getIndustryCode()) : "");
-//                    stockSave.setPeLyr(stock.getPelyr());
-//                    stockSave.setPeTtm(stock.getPettm());
-//                    stockSave.setPeDynamic(0.00);
-//                    stockSave.setPb(stock.getPb());
+                    stockSave.setPeLyr(stock.getPelyr());
+                    stockSave.setPeTtm(stock.getPettm());
+                    stockSave.setPeDynamic(0.00);
+                    stockSave.setPb(stock.getPb());
+                    stockSave.setNetprofit(stock.getNetprofit());
+//                    stockSave.setDy_l(stock.getDy_l());
                     stockService.save(stockSave);
                 });
             }

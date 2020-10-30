@@ -49,20 +49,7 @@ public class XueQiuApi {
 
         Map<String, Object> paramMap = new HashMap<>();
 
-        https://xueqiu.com/service/screener/screen?
-        // category=CN&
-        //exchange=sh_sz&
-        //areacode=&
-        //indcode=&
-        //order_by=
-        //symbol&
-        //order=desc&
-        //page=1&size=30&
-        //only_count=0&
-        //current=&
-        //pct=&
-        //mc=&
-        //volume=&_=1604027909585
+        https://xueqiu.com/service/screener/screen?category=CN&exchange=sh_sz&areacode=&indcode=&order_by=netprofit.20200930&order=asc&page=1&size=30&only_count=0&current=&pct=&pettm=-842429.57_144253.24&pelyr=-7250.12_5673.56&pb=-310_308&netprofit.20200930=-2884173158.61_103041000000&_=1604033275652
 
         paramMap.put("category", "CN");
         paramMap.put("exchange", "sh_sz");
@@ -74,19 +61,12 @@ public class XueQiuApi {
         paramMap.put("size", size);
         paramMap.put("only_count", "0");
         paramMap.put("current", "");
-//        paramMap.put("pct", "");
-//        paramMap.put("pettm", "-13227.76_11283.7");
-//        paramMap.put("pelyr", "-7505.12_5696.04");
-//        paramMap.put("pb", "-170.5_315");
-
-//        paramMap.put("roediluted.20200630", "-488.75_192.69");
-//        paramMap.put("bps.20200630", "-15.44_109.24");
-//        paramMap.put("eps.20200630", "-24.78_17.99");
-//        paramMap.put("netprofit.20200630", "-29986000000_148790000000");
-//        paramMap.put("dy_l", "0_18.18");
-//        paramMap.put("psr", "-31.05_27158.18");
-//        paramMap.put("mc", "71863724_2035027874022");
-
+        paramMap.put("pct", "");
+        paramMap.put("pettm", "-29986000000_148790000000");
+        paramMap.put("pelyr", "-29986000000_148790000000");
+        paramMap.put("pb", "-29986000000_148790000000");
+        paramMap.put("netprofit.20200930", "-29986000000_148790000000");
+//        paramMap.put("dy_l", "-100_100");
         paramMap.put("_", DateTimeUtil.getCurrentDateTimeStr());
         String result = HttpUtil.get(urStocks, paramMap);
         XueQiuResponse<XueQiuResponseStocks> data = JsonUtil.string2Obj(result, XueQiuResponse.class,

@@ -22,6 +22,7 @@
     <th field="peTtm" sortable="true">市盈率(TTM)</th>
     <th field="peLyr" sortable="true">市盈率(静)</th>
     <th field="pb" sortable="true">市净率</th>
+    <th field="netprofit" formatter="formatProfit">盈利</th>
   </tr>
   </thead>
 </table>
@@ -31,6 +32,8 @@
     &nbsp;<select class="easyui-combobox" id="industry" panelHeight="auto" data-options="prompt:'行业名称'" />&nbsp;
     &nbsp;<input type="text" id="name" class="easyui-textbox" data-options="prompt:'股票名称'" />
     &nbsp;<input type="text" id="code" class="easyui-textbox" data-options="prompt:'股票代码'" />
+     <input id="profit" class="easyui-checkbox" label="过滤亏损企业">
+     <input id="st" class="easyui-checkbox" label="过滤ST企业">
     <a href="javascript:searchData()" class="easyui-linkbutton" iconCls="search">搜索</a>
   </div>
 </div>

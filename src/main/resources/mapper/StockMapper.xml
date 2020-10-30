@@ -14,40 +14,50 @@
     <result column="pe_lyr" property="peLyr" jdbcType="DOUBLE"/>
     <result column="pe_ttm" property="peTtm" jdbcType="DOUBLE"/>
     <result column="pb" property="pb" jdbcType="DOUBLE"/>
+    <result column="netprofit" property="netprofit" jdbcType="DOUBLE"/>
   </resultMap>
 
   <select id="getStockList" resultMap="BaseResultMap">
-    SELECT id, `name`, `code`, `industry_code`,  `industry_name`,  `pe_dynamic`,  `pe_lyr`,  `pe_ttm`,  `pb` FROM
-    stock
-    <where>
-      <if test="name != null and name != ''">
-        `stock`.name LIKE CONCAT('%', #{name} ,'%')
-      </if>
-      <if test="code != null and code != ''">
-        `stock`.code LIKE CONCAT('%', #{code} ,'%')
-      </if>
-      <if test="industryName != null and industryName != ''">
-        `stock`.industry_name = #{industryName}
-      </if>
-    </where>
+    SELECT id, `name`, `code`, `industry_code`, `industry_name`, `pe_dynamic`, `pe_lyr`, `pe_ttm`, `pb`, `netprofit`
+    FROM
+    stock WHERE 1=1
+    <if test="name != null and name != ''">
+      AND `stock`.name LIKE CONCAT('%', #{name} ,'%')
+    </if>
+    <if test="code != null and code != ''">
+      AND `stock`.code LIKE CONCAT('%', #{code} ,'%')
+    </if>
+    <if test="industryName != null and industryName != ''">
+      AND `stock`.industry_name = #{industryName}
+    </if>
+    <if test="profit != null and profit == true">
+      AND `stock`.netprofit > 0
+    </if>
+    <if test="st != null and st == true">
+      AND `stock`.name NOT LIKE '%ST%'
+    </if>
     ORDER BY CONVERT(`${sort}`,SIGNED) ${order}
     LIMIT #{offSet}, #{pageRow}
   </select>
 
   <select id="getStockCount" resultType="java.lang.Integer">
     SELECT count(*) FROM
-    stock
-    <where>
-      <if test="name != null and name != ''">
-        `stock`.name LIKE CONCAT('%', #{name} ,'%')
-      </if>
-      <if test="code != null and code != ''">
-        `stock`.code = #{code}
-      </if>
-      <if test="industryName != null and industryName != ''">
-        `stock`.industry_name = #{industryName}
-      </if>
-    </where>
+    stock WHERE 1=1
+    <if test="name != null and name != ''">
+      AND `stock`.name LIKE CONCAT('%', #{name} ,'%')
+    </if>
+    <if test="code != null and code != ''">
+      AND `stock`.code LIKE CONCAT('%', #{code} ,'%')
+    </if>
+    <if test="industryName != null and industryName != ''">
+      AND `stock`.industry_name = #{industryName}
+    </if>
+    <if test="profit != null and profit == true">
+      AND `stock`.netprofit > 0
+    </if>
+    <if test="st != null and st == true">
+      AND `stock`.name NOT LIKE '%ST%'
+    </if>
   </select>
 
   <select id="getStockIndustryList" resultType="java.lang.String">
@@ -59,15 +69,21 @@
     </where>
   </select>
 
-  <select id="getIndustryList"  resultType="java.util.HashMap">
+  <select id="getIndustryList" resultType="java.util.HashMap">
     SELECT
-	    ANY_VALUE(`id`) AS `id`,
-      industry_name,
-      COUNT(industry_name) as acount,
-      FORMAT(SUM(pe_ttm)/COUNT(industry_name), 2) AS pe_ttm ,
-      FORMAT(SUM(pe_lyr)/COUNT(industry_name), 2) AS pe_lyr ,
-      FORMAT(SUM(pb)/COUNT(industry_name), 2) AS pb
-    FROM stock
+    ANY_VALUE(`id`) AS `id`,
+    industry_name,
+    COUNT(industry_name) as acount,
+    FORMAT(SUM(pe_ttm)/COUNT(industry_name), 2) AS pe_ttm ,
+    FORMAT(SUM(pe_lyr)/COUNT(industry_name), 2) AS pe_lyr ,
+    FORMAT(SUM(pb)/COUNT(industry_name), 2) AS pb
+    FROM stock WHERE 1=1
+    <if test="profit != null and profit == true">
+      AND `stock`.netprofit > 0
+    </if>
+    <if test="st != null and st == true">
+      AND `stock`.name NOT LIKE '%ST%'
+    </if>
     GROUP BY `industry_name`
     <if test="industryName != null and industryName != ''">
       HAVING `stock`.industry_name = #{industryName}
@@ -78,21 +94,27 @@
 
   <select id="getIndustryCount" resultType="java.lang.Integer">
     SELECT
-        COUNT(*)
+    COUNT(*)
     FROM (
-      SELECT COUNT(*) FROM stock
-      GROUP BY `industry_name`
-        <if test="industryName != null and industryName != ''">
-          HAVING `stock`.industry_name = #{industryName}
-        </if>
+    SELECT COUNT(*) FROM stock WHERE 1=1
+    <if test="profit != null and profit == true">
+      AND `stock`.netprofit > 0
+    </if>
+    <if test="st != null and st == true">
+      AND `stock`.name NOT LIKE '%ST%'
+    </if>
+    GROUP BY `industry_name`
+    <if test="industryName != null and industryName != ''">
+      HAVING `stock`.industry_name = #{industryName}
+    </if>
     ) u
   </select>
 
   <insert id="saveStock" useGeneratedKeys="true" keyProperty="id"
     parameterType="io.haicheng.cfundtool.pojo.Stock">
         INSERT INTO stock
-        (`name`, `code`, `industry_code`,  `industry_name`,  `pe_dynamic`,  `pe_lyr`,  `pe_ttm`,  `pb`)
-        VALUES (#{name}, #{code},#{industryCode},  #{industryName}, #{peDynamic}, #{peLyr},#{peTtm},  #{pb})
+        (`name`, `code`, `industry_code`,  `industry_name`,  `pe_dynamic`,  `pe_lyr`,  `pe_ttm`,  `pb`, `netprofit`)
+        VALUES (#{name}, #{code},#{industryCode},  #{industryName}, #{peDynamic}, #{peLyr},#{peTtm},  #{pb}, #{netprofit})
     </insert>
 
   <update id="updateStock" parameterType="io.haicheng.cfundtool.pojo.Stock">
@@ -122,12 +144,15 @@
       <if test="pb != '' and pb != null">
         pb = #{pb},
       </if>
+      <if test="netprofit != '' and netprofit != null">
+        netprofit = #{netprofit},
+      </if>
     </set>
     WHERE id = #{id}
   </update>
 
   <select id="getStockByCode" resultMap="BaseResultMap">
-        SELECT id,`name`, `code`, `industry_code`,  `industry_name`,  `pe_dynamic`,  `pe_lyr`,  `pe_ttm`,  `pb` FROM
+        SELECT id,`name`, `code`, `industry_code`,  `industry_name`,  `pe_dynamic`,  `pe_lyr`,  `pe_ttm`,  `pb`,`netprofit` FROM
             stock
         WHERE
             code = #{code}

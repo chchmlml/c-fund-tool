@@ -24,8 +24,6 @@ public class XueQiuResponseStocks {
     @Data
     public static class Item {
 
-        @JsonProperty(value = "pct")
-        private Double pct;
         //股票代码
         @JsonProperty(value = "symbol")
         private String symbol;
@@ -33,18 +31,16 @@ public class XueQiuResponseStocks {
         private Double pettm;
         @JsonProperty(value = "pelyr")
         private Double pelyr;
+        @JsonProperty(value = "pb")
+        private Double pb;
+        @JsonProperty(value = "netprofit")
+        private Double netprofit;
+        @JsonProperty(value = "dy_l")
+        private Double dy_l;
         @JsonProperty(value = "type")
         private Integer type;
         @JsonProperty(value = "areacode")
         private String areacode;
-        @JsonProperty(value = "tick_size")
-        private Double tick_size;
-        @JsonProperty(value = "has_follow")
-        private Boolean has_follow;
-        @JsonProperty(value = "current")
-        private Double current;
-        @JsonProperty(value = "pb")
-        private Double pb;
         @JsonProperty(value = "name")
         private String name;
         @JsonProperty(value = "exchange")

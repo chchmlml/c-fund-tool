@@ -22,13 +22,17 @@ public interface StockService {
             String order,
             String name,
             String code,
-            String industryName);
+            String industryName,
+            Boolean profit,
+            Boolean st);
 
     Map<String, Object> listOfIndustry(Integer page,
             Integer rows,
             String sort,
             String order,
-            String industryName);
+            String industryName,
+            Boolean profit,
+            Boolean st);
 
     ServiceVO save(Stock stock);
 
