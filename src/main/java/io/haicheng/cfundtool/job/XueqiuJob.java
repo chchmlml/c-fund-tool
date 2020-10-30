@@ -59,15 +59,15 @@ public class XueqiuJob {
                 responseData.getList().forEach(stock -> {
                     log.info("### {}", stock);
                     Stock stockSave = new Stock();
-                    stockSave.setName(stock.getName());
+                     stockSave.setName(stock.getName());
                     stockSave.setCode(stock.getSymbol());
                     stockSave.setIndustryCode((null == stock.getIndcode()) ? "" : stock.getIndcode());
                     stockSave.setIndustryName(industryMap.containsKey(stockSave.getIndustryCode()) ? industryMap.get(
                             stockSave.getIndustryCode()) : "");
-                    stockSave.setPeLyr(stock.getPelyr());
-                    stockSave.setPeTtm(stock.getPettm());
-                    stockSave.setPeDynamic(0.00);
-                    stockSave.setPb(stock.getPb());
+//                    stockSave.setPeLyr(stock.getPelyr());
+//                    stockSave.setPeTtm(stock.getPettm());
+//                    stockSave.setPeDynamic(0.00);
+//                    stockSave.setPb(stock.getPb());
                     stockService.save(stockSave);
                 });
             }

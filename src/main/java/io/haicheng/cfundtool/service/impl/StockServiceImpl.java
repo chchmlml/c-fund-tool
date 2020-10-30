@@ -80,6 +80,18 @@ public class StockServiceImpl implements StockService {
     public ServiceVO save(Stock stock) {
         Stock current = stockMapper.getStockByCode(stock.getCode());
         if (current == null) {
+            if (null == stock.getPeDynamic()) {
+                stock.setPeDynamic(0.00);
+            }
+            if (null == stock.getPeLyr()) {
+                stock.setPeLyr(0.00);
+            }
+            if (null == stock.getPeTtm()) {
+                stock.setPeTtm(0.00);
+            }
+            if (null == stock.getPb()) {
+                stock.setPb(0.00);
+            }
             stockMapper.saveStock(stock);
         } else {
             stock.setId(current.getId());

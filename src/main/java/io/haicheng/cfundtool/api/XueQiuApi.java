@@ -49,6 +49,21 @@ public class XueQiuApi {
 
         Map<String, Object> paramMap = new HashMap<>();
 
+        https://xueqiu.com/service/screener/screen?
+        // category=CN&
+        //exchange=sh_sz&
+        //areacode=&
+        //indcode=&
+        //order_by=
+        //symbol&
+        //order=desc&
+        //page=1&size=30&
+        //only_count=0&
+        //current=&
+        //pct=&
+        //mc=&
+        //volume=&_=1604027909585
+
         paramMap.put("category", "CN");
         paramMap.put("exchange", "sh_sz");
         paramMap.put("areacode", "");
@@ -59,10 +74,10 @@ public class XueQiuApi {
         paramMap.put("size", size);
         paramMap.put("only_count", "0");
         paramMap.put("current", "");
-        paramMap.put("pct", "");
-        paramMap.put("pettm", "-13227.76_11283.7");
-        paramMap.put("pelyr", "-7505.12_5696.04");
-        paramMap.put("pb", "-170.5_315");
+//        paramMap.put("pct", "");
+//        paramMap.put("pettm", "-13227.76_11283.7");
+//        paramMap.put("pelyr", "-7505.12_5696.04");
+//        paramMap.put("pb", "-170.5_315");
 
 //        paramMap.put("roediluted.20200630", "-488.75_192.69");
 //        paramMap.put("bps.20200630", "-15.44_109.24");
