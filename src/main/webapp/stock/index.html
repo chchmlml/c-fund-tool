@@ -13,20 +13,7 @@
   <script type="text/javascript" src="../static/js/stock.js"></script>
 </head>
 <body>
-<table id="dg" class="easyui-datagrid">
-  <thead>
-  <tr>
-    <th field="name">股票名称</th>
-    <th field="code">股票代码</th>
-    <th field="industryName">行业名称</th>
-    <th field="peTtm" sortable="true">市盈率(TTM)</th>
-    <th field="peLyr" sortable="true">市盈率(静)</th>
-    <th field="pb" sortable="true">市净率</th>
-    <th field="netprofit" formatter="formatProfit">盈利</th>
-  </tr>
-  </thead>
-</table>
-
+<table id="dg" class="easyui-datagrid"></table>
 <div id="tb">
   <div>
     &nbsp;<select class="easyui-combobox" id="industry" panelHeight="auto" data-options="prompt:'行业名称'" />&nbsp;

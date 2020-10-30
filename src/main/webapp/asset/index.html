@@ -13,17 +13,7 @@
   <script type="text/javascript" src="../static/js/index.js"></script>
 </head>
 <body>
-<table id="dg" class="easyui-datagrid" fit="true" fitColumns="true" pagination="true" rownumbers="true"
-       singleSelect="false" url="/index/list" pageList="[30,40,50]" pageSize="30" toolbar="#tb" striped="true"
-       title="指数管理">
-  <thead>
-  <tr>
-    <th field="id" hidden="true">id</th>
-    <th field="name" align="center">指数名称</th>
-    <th field="code" align="center">指数code</th>
-  </tr>
-  </thead>
-</table>
+<table id="dg"></table>
 
 <div id="tb">
   <div>
@@ -39,12 +29,10 @@
   <form method="post" id="fm">
     <table cellspacing="8px">
       <tr>
-        <td>指数名称:</td>
-        <td><input id="name" name="name" type="text" class="easyui-textbox"/></td>
+        <td><input id="name" name="name" type="text" class="easyui-textbox" label="指数名称:"/></td>
       </tr>
       <tr>
-        <td>指数code:</td>
-        <td><input id="code" name="code" type="text" class="easyui-textbox"/></td>
+        <td><input id="code" name="code" type="text" class="easyui-textbox" label="指数code:"/></td>
       </tr>
     </table>
   </form>

@@ -79,6 +79,22 @@ function closeDlg() {
 $(function () {
     //数据表格加载完毕后，绑定双击打开修改窗口事件
     $('#dg').datagrid({
+        columns: [[
+            {field: 'id', hidden:true},
+            {field: 'date', title: '日期', width: 100},
+            {field: 'itemName', title: '投资名称', sortable: true, width: 100},
+            {field: 'itemAmount', title: '投资金额', sortable: true, width: 100}
+        ]],
+        fit: true,
+        fitColumns: true,
+        pagination: true,
+        rownumbers: true,
+        singleSelect: false,
+        url: "/account/list",
+        pageList: [30, 40, 50],
+        pageSize: "30",
+        toolbar: "#tb",
+        striped: true,
         onDblClickRow: function (index, row) {
             //加载数据至表单
             $('#fm').form('load', row);

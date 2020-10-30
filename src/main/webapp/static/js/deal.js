@@ -45,6 +45,7 @@ function openDealModifyDialog() {
         });
         return;
     }
+
     //加载数据至表单
     $('#fm').form('load', selections[0]);
     console.log(selections[0]);
@@ -80,6 +81,24 @@ function closeDlg() {
 $(function () {
     //数据表格加载完毕后，绑定双击打开修改窗口事件
     $('#dg').datagrid({
+        columns: [[
+            {field: 'id', hidden:true},
+            {field: 'date', title: '日期', width: 100},
+            {field: 'outsideFund', title: '基金代码（场外）', width: 100},
+            {field: 'insideFund', title: '基金代码（场内）', width: 100},
+            {field: 'fundName', title: '基金名称'},
+            {field: 'amount', title: '购买金额', width: 100}
+        ]],
+        fit: true,
+        fitColumns: true,
+        pagination: true,
+        rownumbers: true,
+        singleSelect: false,
+        url: "/deal/list",
+        pageList: [30, 40, 50],
+        pageSize: "30",
+        toolbar: "#tb",
+        striped: true,
         showFooter: true,
         onDblClickRow: function (index, row) {
             //加载数据至表单

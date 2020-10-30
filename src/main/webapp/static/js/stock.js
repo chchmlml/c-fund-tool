@@ -57,6 +57,20 @@ $(function () {
     });
 
     $('#dg').datagrid({
+        columns: [[
+            {field: 'name', title: '股票名称', width: 100},
+            {field: 'code', title: '股票代码', width: 100},
+            {field: 'industryName', title: '行业名称', width: 100},
+            {field: 'peTtm', title: '市盈率(TTM)', sortable: true, width: 100},
+            {field: 'peLyr', title: '市盈率(静)', sortable: true, width: 100},
+            {field: 'pb', title: '市净率', sortable: true, width: 100},
+            {
+                field: 'netprofit',
+                title: '盈利',
+                width: 100,
+                formatter: formatProfit, width: 100
+            }
+        ]],
         fit: true,
         fitColumns: true,
         pagination: true,

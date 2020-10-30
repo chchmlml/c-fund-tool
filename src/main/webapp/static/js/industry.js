@@ -18,6 +18,13 @@ $(function () {
     });
 
     $('#dg').datagrid({
+        columns: [[
+            {field: 'industry_name', title: '行业名称', width: 100},
+            {field: 'acount', title: '股票数量', width: 100},
+            {field: 'pe_ttm', title: '平均市盈率(TTM)', sortable: true, width: 100},
+            {field: 'pe_lyr', title: '平均市盈率(静)', sortable: true, width: 100},
+            {field: 'pb', title: '平均市净率', sortable: true, width: 100}
+        ]],
         fit: true,
         fitColumns: true,
         pagination: true,

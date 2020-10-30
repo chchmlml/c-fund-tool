@@ -23,6 +23,16 @@ $(function () {
     });
 
     $('#dg').datagrid({
+        columns: [[
+            {field: 'date', title: '日期', width: 100},
+            {field: 'indexName', title: '指数名称', width: 100},
+            {field: 'indexCode', title: '场内基金', width: 100},
+            {field: 'ep', title: '盈利收益率', width: 100, formatter: formatPe},
+            {field: 'pe', title: '市盈率', width: 100},
+            {field: 'pb', title: '市净率', width: 100},
+            {field: 'dyr', title: '股息率', width: 100},
+            {field: 'roe', title: 'ROE', width: 100}
+        ]],
         fit: true,
         fitColumns: true,
         pagination: true,
@@ -33,7 +43,6 @@ $(function () {
         pageSize: "30",
         toolbar: "#tb",
         striped: true,
-        title: "指数管理",
         rowStyler: function (index, row) {
             if (row.pe != 0) {
                 // 绿色：估值较低，适合开始定投的品种
