@@ -81,7 +81,6 @@ $(function () {
         pageSize: "30",
         toolbar: "#tb",
         striped: true,
-        title: "指数管理",
         rowStyler: function (index, row) {
             // if (row.pe != 0) {
             //     // 绿色：估值较低，适合开始定投的品种
