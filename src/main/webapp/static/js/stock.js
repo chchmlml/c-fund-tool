@@ -12,11 +12,6 @@ function searchData() {
     });
 }
 
-function formatProfit(val, row) {
-    var data = unitConvert(val);
-    return data.num + data.unit;
-}
-
 function unitConvert(num) {
     var moneyUnits = ["元", "万元", "亿元", "万亿"]
     var dividend = 10000;
@@ -31,7 +26,7 @@ function unitConvert(num) {
         }
         curentNum = curentNum / dividend
     }
-    var m = {num: 0, unit: ""}
+    var m = { num: 0, unit: "" }
     m.num = curentNum.toFixed(2)
     m.unit = curentUnit;
     return m;
@@ -58,17 +53,30 @@ $(function () {
 
     $('#dg').datagrid({
         columns: [[
-            {field: 'name', title: '股票名称', width: 100},
-            {field: 'code', title: '股票代码', width: 100},
-            {field: 'industryName', title: '行业名称', width: 100},
-            {field: 'peTtm', title: '市盈率(TTM)', sortable: true, width: 100},
-            {field: 'peLyr', title: '市盈率(静)', sortable: true, width: 100},
-            {field: 'pb', title: '市净率', sortable: true, width: 100},
+            { field: 'name', title: '股票名称', width: 100 },
+            { field: 'code', title: '股票代码', width: 100 },
+            { field: 'industryName', title: '行业名称', width: 100 },
+            { field: 'peTtm', title: '市盈率(TTM)', sortable: true, width: 100 },
+            { field: 'peLyr', title: '市盈率(静)', sortable: true, width: 100 },
+            { field: 'pb', title: '市净率', sortable: true, width: 100 },
             {
                 field: 'netprofit',
                 title: '盈利',
                 width: 100,
-                formatter: formatProfit, width: 100
+                formatter: function (val, row) {
+                    var data = unitConvert(val);
+                    return data.num + data.unit;
+                }
+            },
+            {
+                field: 'op',
+                title: '操作',
+                width: 100,
+                formatter: function (val, row) {
+                    var codeStr = row.code + "";
+                    return "<a target='_blank' href='http://finance.sina.com.cn/realstock/company/" + codeStr.toLowerCase() + "/nc.shtml'>查看</a>";
+                },
+                algin: 'center'
             }
         ]],
         fit: true,
