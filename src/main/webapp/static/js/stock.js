@@ -74,7 +74,10 @@ $(function () {
                 width: 100,
                 formatter: function (val, row) {
                     var codeStr = row.code + "";
-                    return "<a target='_blank' href='http://finance.sina.com.cn/realstock/company/" + codeStr.toLowerCase() + "/nc.shtml'>查看</a>";
+                    var ret =  "<a target='_blank' href='http://finance.sina.com.cn/realstock/company/" + codeStr.toLowerCase() + "/nc.shtml'>sina</a>";
+                    // ret += "&nsbp;|&nsbp;";
+                    ret += "|<a target='_blank' href='http://stockpage.10jqka.com.cn/" + codeStr.replace(/sz|sh/gi, "") + "/'>同花顺</a>";
+                    return ret;
                 },
                 algin: 'center'
             }
