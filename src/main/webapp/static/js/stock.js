@@ -59,7 +59,20 @@ $(function () {
     $('#dg').datagrid({
         columns: [[
             {field: 'name', title: '股票名称', width: 100},
-            {field: 'code', title: '股票代码', width: 100},
+            {
+                field: 'code',
+                title: '股票代码',
+                width: 100,
+                formatter: function (val, row) {
+                    if(val.startsWith("SH")){
+                        return val + '<span style="color: green">[沪]</span>';
+                    }
+                    if(val.startsWith("SZ")){
+                        return val + '<span style="color: red">[深]</span>';
+                    }
+                    return val;
+                }
+            },
             {field: 'industryName', title: '行业名称', width: 100},
             {field: 'peTtm', title: '市盈率(TTM)', sortable: true, width: 100},
             {field: 'peLyr', title: '市盈率(静)', sortable: true, width: 100},
