@@ -24,7 +24,8 @@ public interface StockService {
             String code,
             String industryName,
             Boolean profit,
-            Boolean st);
+            Boolean st,
+            Boolean onlySh);
 
     Map<String, Object> listOfIndustry(Integer page,
             Integer rows,
@@ -32,7 +33,8 @@ public interface StockService {
             String order,
             String industryName,
             Boolean profit,
-            Boolean st);
+            Boolean st,
+            Boolean onlySh);
 
     ServiceVO save(Stock stock);
 

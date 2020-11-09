@@ -29,8 +29,9 @@ public class StockController {
             @RequestParam(name = "code", defaultValue = "") String code,
             @RequestParam(name = "industry", defaultValue = "") String industryName,
             @RequestParam(name = "profit", defaultValue = "false") Boolean profit,
-            @RequestParam(name = "st", defaultValue = "false") Boolean st) {
-        return service.list(page, rows, sort, order, name, code, industryName, profit, st);
+            @RequestParam(name = "st", defaultValue = "false") Boolean st,
+            @RequestParam(name = "onlySh", defaultValue = "false") Boolean onlySh) {
+        return service.list(page, rows, sort, order, name, code, industryName, profit, st, onlySh);
     }
 
     @RequestMapping(path = "/industry", method = {RequestMethod.POST,
@@ -41,8 +42,9 @@ public class StockController {
             @RequestParam(name = "order", defaultValue = "desc") String order,
             @RequestParam(name = "industry", defaultValue = "") String industryName,
             @RequestParam(name = "profit", defaultValue = "false") Boolean profit,
-            @RequestParam(name = "st", defaultValue = "false") Boolean st) {
-        return service.listOfIndustry(page, rows, sort, order, industryName, profit, st);
+            @RequestParam(name = "st", defaultValue = "false") Boolean st,
+            @RequestParam(name = "onlySh", defaultValue = "false") Boolean onlySh) {
+        return service.listOfIndustry(page, rows, sort, order, industryName, profit, st, onlySh);
     }
 
     @RequestMapping("/getComboboxList")

@@ -8,7 +8,8 @@ function searchData() {
         code: $('#code').textbox('getValue'),
         industry: $('#industry').combobox('getValue'),
         profit: $('#profit').checkbox('options').checked,
-        st: $('#st').checkbox('options').checked
+        st: $('#st').checkbox('options').checked,
+        onlySh: $('#onlySh').checkbox('options').checked
     });
 }
 

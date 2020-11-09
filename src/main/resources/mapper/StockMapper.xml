@@ -36,6 +36,9 @@
     <if test="st != null and st == true">
       AND `stock`.name NOT LIKE '%ST%'
     </if>
+    <if test="onlySh != null and onlySh == true">
+      AND `stock`.code LIKE 'SH%'
+    </if>
     ORDER BY CONVERT(`${sort}`,SIGNED) ${order}
     LIMIT #{offSet}, #{pageRow}
   </select>
@@ -57,6 +60,9 @@
     </if>
     <if test="st != null and st == true">
       AND `stock`.name NOT LIKE '%ST%'
+    </if>
+    <if test="onlySh != null and onlySh == true">
+      AND `stock`.code LIKE 'SH%'
     </if>
   </select>
 
@@ -84,6 +90,9 @@
     <if test="st != null and st == true">
       AND `stock`.name NOT LIKE '%ST%'
     </if>
+    <if test="onlySh != null and onlySh == true">
+      AND `stock`.code LIKE 'SH%'
+    </if>
     GROUP BY `industry_name`
     <if test="industryName != null and industryName != ''">
       HAVING `stock`.industry_name = #{industryName}
@@ -102,6 +111,9 @@
     </if>
     <if test="st != null and st == true">
       AND `stock`.name NOT LIKE '%ST%'
+    </if>
+    <if test="onlySh != null and onlySh == true">
+      AND `stock`.code LIKE 'SH%'
     </if>
     GROUP BY `industry_name`
     <if test="industryName != null and industryName != ''">

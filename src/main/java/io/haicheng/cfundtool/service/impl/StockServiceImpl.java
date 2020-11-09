@@ -36,15 +36,17 @@ public class StockServiceImpl implements StockService {
             String code,
             String industryName,
             Boolean profit,
-            Boolean st) {
+            Boolean st,
+            Boolean onlySh) {
         Map<String, Object> map = new HashMap<>();
         page = (null == page || page == 0) ? 1 : page;
         rows = (null == rows || rows == 0) ? 20 : rows;
         sort = (null == sort) ? "id" : StrUtil.toUnderlineCase(sort);
         order = (null == order) ? "desc" : order;
         int offSet = (page - 1) * rows;
-        List<Stock> funds = stockMapper.getStockList(offSet, rows, sort, order, name, code, industryName, profit, st);
-        map.put("total", stockMapper.getStockCount(name, code, industryName, profit, st));
+        List<Stock> funds = stockMapper.getStockList(offSet, rows, sort, order, name, code, industryName, profit, st,
+                onlySh);
+        map.put("total", stockMapper.getStockCount(name, code, industryName, profit, st, onlySh));
         map.put("rows", funds);
         return map;
     }
@@ -56,7 +58,8 @@ public class StockServiceImpl implements StockService {
             String order,
             String industryName,
             Boolean profit,
-            Boolean st) {
+            Boolean st,
+            Boolean onlySh) {
         Map<String, Object> map = new HashMap<>();
         page = (null == page || page == 0) ? 1 : page;
         rows = (null == rows || rows == 0) ? 20 : rows;
@@ -74,8 +77,8 @@ public class StockServiceImpl implements StockService {
         }
         order = (null == order) ? "desc" : order;
         int offSet = (page - 1) * rows;
-        List<Map> funds = stockMapper.getIndustryList(offSet, rows, sort, order, industryName, profit, st);
-        map.put("total", stockMapper.getIndustryCount(industryName, profit, st));
+        List<Map> funds = stockMapper.getIndustryList(offSet, rows, sort, order, industryName, profit, st, onlySh);
+        map.put("total", stockMapper.getIndustryCount(industryName, profit, st, onlySh));
         map.put("rows", funds);
         return map;
     }

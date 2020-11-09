@@ -30,7 +30,7 @@ public class StockServiceTest {
 
     @Test
     public void testGetList() {
-        Map<String, Object> lists = service.list(null, null, null, null, null, null, null, true, true);
+        Map<String, Object> lists = service.list(null, null, null, null, null, null, null, true, true, true);
         log.info("list {}", lists);
 
         Assert.assertNotNull(lists);
@@ -40,7 +40,7 @@ public class StockServiceTest {
 
     @Test
     public void testListOfIndustry() {
-        Map<String, Object> lists = service.listOfIndustry(null, null, null, null, "中药", true, true);
+        Map<String, Object> lists = service.listOfIndustry(null, null, null, null, "中药", true, true, true);
         log.info("list {}", lists);
 
         Assert.assertNotNull(lists);

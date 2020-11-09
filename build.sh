@@ -1,7 +1,10 @@
 #!/bin/bash
 set -e
 # SOURCE_ROOT=$(dirname $(pwd))
-SOURCE_ROOT=$(cd "$(dirname "$0")";pwd)
+SOURCE_ROOT=$(
+  cd "$(dirname "$0")"
+  pwd
+)
 MAVEN_FLAGS="-U -Dmaven.test.skip -am"
 MAVEN_GOALS="clean package"
 MAVEN_POM_FILE="${SOURCE_ROOT}/pom.xml"
@@ -44,29 +47,37 @@ echo ">>> Start build ..."
 
 echo ">>> mvn -f ${MAVEN_POM_FILE} ${MAVEN_FLAGS}  ${MAVEN_GOALS} -s ${MAVEN_SETTINGS_FILE}"
 
-mvn -f ${MAVEN_POM_FILE} ${MAVEN_FLAGS}  ${MAVEN_GOALS}
+mvn -f ${MAVEN_POM_FILE} ${MAVEN_FLAGS} ${MAVEN_GOALS}
 #mvn -f ${MAVEN_POM_FILE} ${MAVEN_FLAGS}  ${MAVEN_GOALS} -s ${MAVEN_SETTINGS_FILE}
 
 echo ">>> Build completed."
 
 if [[ ${IS_WEB_SERVICE} == 1 ]]; then
-    if [[ ! -d ${TARGET_BIN_PATH} ]]; then
-        echo ">>> Start create target directory..."
-        echo ">>> mkdir -p ${TARGET_BIN_PATH}"
-        mkdir -p ${TARGET_BIN_PATH}
-    fi
+  if [[ ! -d ${TARGET_BIN_PATH} ]]; then
+    echo ">>> Start create target directory..."
+    echo ">>> mkdir -p ${TARGET_BIN_PATH}"
+    mkdir -p ${TARGET_BIN_PATH}
+  fi
 
-    echo ">>> Move target files..."
-    echo ">>> cp ${BUILD_PATH}/doc/${RUN_SHELL} ${TARGET_BIN_PATH}/${RUN_SHELL}"
-    cp "${BUILD_PATH}/doc/${RUN_SHELL}" ${TARGET_BIN_PATH}/${RUN_SHELL}
-    echo ">>> cp ${BUILD_TARGET_JAR} ${TARGET_JAR}"
-    cp ${BUILD_TARGET_JAR} ${TARGET_JAR}
-    echo ">>> cp ${BUILD_DOCKER_COMPOSE_FILE} ${TARGET_DOCKER_COMPOSE_FILE}"
-    cp ${BUILD_DOCKER_COMPOSE_FILE} ${TARGET_DOCKER_COMPOSE_FILE}
+  echo ">>> Move target files..."
+  echo ">>> cp ${BUILD_PATH}/doc/${RUN_SHELL} ${TARGET_BIN_PATH}/${RUN_SHELL}"
+  cp "${BUILD_PATH}/doc/${RUN_SHELL}" ${TARGET_BIN_PATH}/${RUN_SHELL}
+  echo ">>> cp ${BUILD_TARGET_JAR} ${TARGET_JAR}"
+  cp ${BUILD_TARGET_JAR} ${TARGET_JAR}
+  echo ">>> cp ${BUILD_DOCKER_COMPOSE_FILE} ${TARGET_DOCKER_COMPOSE_FILE}"
+  cp ${BUILD_DOCKER_COMPOSE_FILE} ${TARGET_DOCKER_COMPOSE_FILE}
 fi
 
 echo ">>> start application."
-kill -9 `lsof -t -i:8888`
+{ # try
+
+  kill -9 $(lsof -t -i:8888)
+  #save your output
+
+} || { # catch
+  echo "没有找到进程"
+}
+
 rm -rf log.log
-nohup java -jar target/bin/app.jar --server.port=8888 --spring.profiles.active=dev  > log.log 2>&1 &
+nohup java -jar target/bin/app.jar --server.port=8888 --spring.profiles.active=dev >log.log 2>&1 &
 tail -f ./log.log

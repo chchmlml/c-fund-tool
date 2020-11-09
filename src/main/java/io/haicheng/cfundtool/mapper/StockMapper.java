@@ -16,13 +16,15 @@ public interface StockMapper extends MyMapper<Stock> {
             @Param("code") String code,
             @Param("industryName") String industryName,
             @Param("profit") Boolean profit,
-            @Param("st") Boolean st);
+            @Param("st") Boolean st,
+            @Param("onlySh") Boolean onlySh);
 
     Integer getStockCount(@Param("name") String name,
             @Param("code") String code,
             @Param("industryName") String industryName,
             @Param("profit") Boolean profit,
-            @Param("st") Boolean st);
+            @Param("st") Boolean st,
+            @Param("onlySh") Boolean onlySh);
 
     List<Map> getIndustryList(@Param("offSet") Integer offSet,
             @Param("pageRow") Integer pageRow,
@@ -30,11 +32,13 @@ public interface StockMapper extends MyMapper<Stock> {
             @Param("order") String order,
             @Param("industryName") String industryName,
             @Param("profit") Boolean profit,
-            @Param("st") Boolean st);
+            @Param("st") Boolean st,
+            @Param("onlySh") Boolean onlySh);
 
     Integer getIndustryCount(@Param("industryName") String industryName,
             @Param("profit") Boolean profit,
-            @Param("st") Boolean st);
+            @Param("st") Boolean st,
+            @Param("onlySh") Boolean onlySh);
 
     Integer saveStock(Stock fund);
 
