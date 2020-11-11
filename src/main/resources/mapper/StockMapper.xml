@@ -31,7 +31,7 @@
       AND `stock`.industry_name = #{industryName}
     </if>
     <if test="profit != null and profit == true">
-      AND `stock`.netprofit > 0
+      AND `stock`.netprofit > 0 AND pb > 0 AND pe_ttm > 0
     </if>
     <if test="st != null and st == true">
       AND `stock`.name NOT LIKE '%ST%'
@@ -56,7 +56,7 @@
       AND `stock`.industry_name = #{industryName}
     </if>
     <if test="profit != null and profit == true">
-      AND `stock`.netprofit > 0
+      AND `stock`.netprofit > 0 AND pb > 0 AND pe_ttm > 0
     </if>
     <if test="st != null and st == true">
       AND `stock`.name NOT LIKE '%ST%'
@@ -85,7 +85,7 @@
     FORMAT(SUM(pb)/COUNT(industry_name), 2) AS pb
     FROM stock WHERE 1=1
     <if test="profit != null and profit == true">
-      AND `stock`.netprofit > 0
+      AND `stock`.netprofit > 0 AND pb > 0 AND pe_ttm > 0
     </if>
     <if test="st != null and st == true">
       AND `stock`.name NOT LIKE '%ST%'
@@ -107,7 +107,7 @@
     FROM (
     SELECT COUNT(*) FROM stock WHERE 1=1
     <if test="profit != null and profit == true">
-      AND `stock`.netprofit > 0
+      AND `stock`.netprofit > 0 AND pb > 0 AND pe_ttm > 0
     </if>
     <if test="st != null and st == true">
       AND `stock`.name NOT LIKE '%ST%'

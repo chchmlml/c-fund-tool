@@ -48,8 +48,8 @@ $(function () {
     $('#industry').combobox({
         mode: 'remote',
         url: '/stock/getComboboxList',
-        valueField: 'name',
-        textField: 'name'
+        valueField: 'key',
+        textField: 'val'
     });
 
     $('#dg').datagrid({
