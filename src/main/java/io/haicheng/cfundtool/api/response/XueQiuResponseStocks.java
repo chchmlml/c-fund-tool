@@ -37,6 +37,12 @@ public class XueQiuResponseStocks {
         private Double netprofit;
         @JsonProperty(value = "dy_l")
         private Double dy_l;
+        @JsonProperty(value = "ia")
+        private Double ia;
+        @JsonProperty(value = "ta")
+        private Double ta;
+        @JsonProperty(value = "goodwill")
+        private Double goodwill;
         @JsonProperty(value = "type")
         private Integer type;
         @JsonProperty(value = "areacode")

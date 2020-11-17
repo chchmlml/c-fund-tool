@@ -7,6 +7,7 @@ import io.haicheng.cfundtool.api.response.XueQiuResponseStocks;
 import io.haicheng.cfundtool.pojo.Stock;
 import io.haicheng.cfundtool.service.StockService;
 import io.haicheng.cfundtool.utils.DateTimeUtil;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +31,7 @@ public class XueqiuJob {
     @Autowired
     StockService stockService;
 
-    @Scheduled(cron = "* */55  * * * ?")
+    @Scheduled(cron = "* */30  * * * ?")
     public void cronJob() {
         log.info(">>>>>>>>>>>>>>>>>>> 雪球股票数据 @{}", DateTimeUtil.getCurrentDateTimeStr());
         run();
@@ -59,17 +60,33 @@ public class XueqiuJob {
                 responseData.getList().forEach(stock -> {
                     log.info("### {}", stock);
                     Stock stockSave = new Stock();
-                     stockSave.setName(stock.getName());
+                    stockSave.setName(stock.getName());
                     stockSave.setCode(stock.getSymbol());
                     stockSave.setIndustryCode((null == stock.getIndcode()) ? "" : stock.getIndcode());
-                    stockSave.setIndustryName(industryMap.containsKey(stockSave.getIndustryCode()) ? industryMap.get(
-                            stockSave.getIndustryCode()) : "");
+                    String IndustryName = industryMap.containsKey(stockSave.getIndustryCode()) ? industryMap.get(
+                            stockSave.getIndustryCode()) : "";
+                    stockSave.setIndustryName(IndustryName);
                     stockSave.setPeLyr(stock.getPelyr());
                     stockSave.setPeTtm(stock.getPettm());
                     stockSave.setPeDynamic(0.00);
                     stockSave.setPb(stock.getPb());
                     stockSave.setNetprofit(stock.getNetprofit());
-//                    stockSave.setDy_l(stock.getDy_l());
+                    stockSave.setIa(stock.getIa());
+                    stockSave.setTa(stock.getTa());
+                    stockSave.setGoodwill(stock.getGoodwill());
+                    Double pbScore;
+                    Double peScore;
+                    if (Arrays.asList("普钢", "特种钢", "钢加工区域地产", "房地产", "银行", "煤炭开采", "公路", "路桥", "水力发电", "火力发电", "新型电力")
+                            .contains(IndustryName)) {
+                        pbScore = 1 / stock.getPb() * 100;
+                        peScore = 10 / stock.getPettm() * 100;
+                    } else {
+                        pbScore = 0.6 / stock.getPb() * 100;
+                        peScore = 6 / stock.getPettm() * 100;
+                    }
+                    stockSave.setPbScore(pbScore);
+                    stockSave.setPeScore(peScore);
+                    stockSave.setScore(pbScore + peScore);
                     stockService.save(stockSave);
                 });
             }

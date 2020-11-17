@@ -27,7 +27,7 @@ function unitConvert(num) {
         }
         curentNum = curentNum / dividend
     }
-    var m = { num: 0, unit: "" }
+    var m = {num: 0, unit: ""}
     m.num = curentNum.toFixed(2)
     m.unit = curentUnit;
     return m;
@@ -60,19 +60,48 @@ $(function () {
                 title: '股票代码',
                 width: 100,
                 formatter: function (val, row) {
-                    if(val.startsWith("SH")){
+                    if (val.startsWith("SH")) {
                         return val + '<span style="color: green">[沪]</span>';
                     }
-                    if(val.startsWith("SZ")){
+                    if (val.startsWith("SZ")) {
                         return val + '<span style="color: red">[深]</span>';
                     }
                     return val;
                 }
             },
-            { field: 'industryName', title: '行业名称', width: 100 },
-            { field: 'peTtm', title: '市盈率(TTM)', sortable: true, width: 100 },
-            { field: 'peLyr', title: '市盈率(静)', sortable: true, width: 100 },
-            { field: 'pb', title: '市净率', sortable: true, width: 100 },
+            {field: 'industryName', title: '行业名称', width: 100},
+            {field: 'peTtm', title: '市盈率(TTM)', sortable: true, width: 100},
+            {field: 'peLyr', title: '市盈率(静)', sortable: true, width: 100},
+            {field: 'pb', title: '市净率', sortable: true, width: 100},
+            {field: 'pbScore', title: 'pb得分', sortable: true, width: 100},
+            {field: 'peScore', title: 'pe得分', sortable: true, width: 100},
+            {field: 'score', title: '总分', sortable: true, width: 100},
+            {
+                field: 'ia', title: '无形资产', sortable: true, width: 100,
+                styler: function (val, row, index) {
+                    var num = val / row.ta;
+                    if (!isNaN(num) && num > 0.2) {
+                        return 'background-color:#FEA043;';
+                    }
+                },
+                formatter: function (val, row) {
+                    var num = val / row.ta;
+                    return isNaN(num) ? "--" : num.toFixed(4) * 100 + "%";
+                }
+            },
+            {
+                field: 'goodwill', title: '商誉', sortable: true, width: 100,
+                styler: function (val, row, index) {
+                    var num = val / row.ta;
+                    if (!isNaN(num) && num > 0.2) {
+                        return 'background-color:#FEA043;';
+                    }
+                },
+                formatter: function (val, row) {
+                    var num = val / row.ta;
+                    return isNaN(num) ? "--" : num.toFixed(4) * 100 + "%";
+                }
+            },
             {
                 field: 'netprofit',
                 title: '盈利',
@@ -88,9 +117,11 @@ $(function () {
                 width: 100,
                 formatter: function (val, row) {
                     var codeStr = row.code + "";
-                    var ret =  "<a target='_blank' href='http://finance.sina.com.cn/realstock/company/" + codeStr.toLowerCase() + "/nc.shtml'>sina</a>";
+                    var ret = "<a target='_blank' href='http://finance.sina.com.cn/realstock/company/"
+                        + codeStr.toLowerCase() + "/nc.shtml'>sina</a>";
                     // ret += "&nsbp;|&nsbp;";
-                    ret += "|<a target='_blank' href='http://stockpage.10jqka.com.cn/" + codeStr.replace(/sz|sh/gi, "") + "/'>同花顺</a>";
+                    ret += "|<a target='_blank' href='http://stockpage.10jqka.com.cn/"
+                        + codeStr.replace(/sz|sh/gi, "") + "/'>同花顺</a>";
                     return ret;
                 },
                 algin: 'center'

@@ -70,6 +70,12 @@ public class StockServiceTest {
         stock.setPeTtm(1.02);
         stock.setPeLyr(1.03);
         stock.setPb(1.04);
+        stock.setIa(1.05);
+        stock.setTa(1.06);
+        stock.setGoodwill(1.07);
+        stock.setPbScore(1.08);
+        stock.setPeScore(1.09);
+        stock.setNetprofit(1.10);
         service.save(stock);
         Assert.assertNotNull(stock.getId());
 

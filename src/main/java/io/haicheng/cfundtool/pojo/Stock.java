@@ -47,4 +47,22 @@ public class Stock {
 
     @Column(name = "dy_l")
     private Double dy_l;
+
+    @Column(name = "ia")
+    private Double ia;
+
+    @Column(name = "ta")
+    private Double ta;
+
+    @Column(name = "goodwill")
+    private Double goodwill;
+
+    @Column(name = "pe_score")
+    private Double peScore;
+
+    @Column(name = "pb_score")
+    private Double pbScore;
+
+    @Column(name = "score")
+    private Double score;
 }

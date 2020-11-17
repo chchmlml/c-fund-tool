@@ -14,11 +14,19 @@
     <result column="pe_lyr" property="peLyr" jdbcType="DOUBLE"/>
     <result column="pe_ttm" property="peTtm" jdbcType="DOUBLE"/>
     <result column="pb" property="pb" jdbcType="DOUBLE"/>
+    <result column="ia" property="ia" jdbcType="DOUBLE"/>
+    <result column="ta" property="ta" jdbcType="DOUBLE"/>
+    <result column="goodwill" property="goodwill" jdbcType="DOUBLE"/>
+    <result column="pb_score" property="pbScore" jdbcType="DOUBLE"/>
+    <result column="pe_score" property="peScore" jdbcType="DOUBLE"/>
+    <result column="score" property="score" jdbcType="DOUBLE"/>
     <result column="netprofit" property="netprofit" jdbcType="DOUBLE"/>
   </resultMap>
 
   <select id="getStockList" resultMap="BaseResultMap">
-    SELECT id, `name`, `code`, `industry_code`, `industry_name`, `pe_dynamic`, `pe_lyr`, `pe_ttm`, `pb`, `netprofit`
+    SELECT id, `name`, `code`, `industry_code`, `industry_name`,
+            `pe_dynamic`, `pe_lyr`, `pe_ttm`, `pb`, `netprofit`,
+            ia, ta, goodwill, pb_score, pe_score, score
     FROM
     stock WHERE 1=1
     <if test="name != null and name != ''">
@@ -125,8 +133,13 @@
   <insert id="saveStock" useGeneratedKeys="true" keyProperty="id"
     parameterType="io.haicheng.cfundtool.pojo.Stock">
         INSERT INTO stock
-        (`name`, `code`, `industry_code`,  `industry_name`,  `pe_dynamic`,  `pe_lyr`,  `pe_ttm`,  `pb`, `netprofit`)
-        VALUES (#{name}, #{code},#{industryCode},  #{industryName}, #{peDynamic}, #{peLyr},#{peTtm},  #{pb}, #{netprofit})
+        (`name`, `code`, `industry_code`,  `industry_name`,
+        `pe_dynamic`,  `pe_lyr`,  `pe_ttm`,  `pb`, `netprofit`,
+        ia, ta, goodwill, pb_score, pe_score,score)
+        VALUES (#{name}, #{code},#{industryCode},  #{industryName},
+        #{peDynamic}, #{peLyr},#{peTtm},  #{pb}, #{netprofit},
+        #{ia}, #{ta},#{goodwill},  #{pbScore}, #{peScore}, #{score}
+        )
     </insert>
 
   <update id="updateStock" parameterType="io.haicheng.cfundtool.pojo.Stock">
@@ -159,12 +172,30 @@
       <if test="netprofit != '' and netprofit != null">
         netprofit = #{netprofit},
       </if>
+      <if test="ia != '' and ia != null">
+        ia = #{ia},
+      </if>
+      <if test="ta != '' and ta != null">
+        ta = #{ta},
+      </if>
+      <if test="goodwill != '' and goodwill != null">
+        goodwill = #{goodwill},
+      </if>
+      <if test="pbScore != '' and pbScore != null">
+        pb_score = #{pbScore},
+      </if>
+      <if test="peScore != '' and peScore != null">
+        pe_score = #{peScore},
+      </if>
+      <if test="score != '' and score != null">
+        score = #{score},
+      </if>
     </set>
     WHERE id = #{id}
   </update>
 
   <select id="getStockByCode" resultMap="BaseResultMap">
-        SELECT id,`name`, `code`, `industry_code`,  `industry_name`,  `pe_dynamic`,  `pe_lyr`,  `pe_ttm`,  `pb`,`netprofit` FROM
+        SELECT id,`name`, `code`, `industry_code`,  `industry_name`,  `pe_dynamic`,  `pe_lyr`,  `pe_ttm`,  `pb`,`netprofit`, ia, ta, goodwill, pb_score, pe_score,score FROM
             stock
         WHERE
             code = #{code}
