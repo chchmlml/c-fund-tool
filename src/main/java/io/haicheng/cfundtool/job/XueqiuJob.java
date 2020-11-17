@@ -78,11 +78,11 @@ public class XueqiuJob {
                     Double peScore;
                     if (Arrays.asList("普钢", "特种钢", "钢加工区域地产", "房地产", "银行", "煤炭开采", "公路", "路桥", "水力发电", "火力发电", "新型电力",
                             "房地产开发", "高速公路", "钢铁").contains(IndustryName)) {
-                        pbScore = 1 / stock.getPb() * 100;
-                        peScore = 10 / stock.getPettm() * 100;
-                    } else {
                         pbScore = 0.6 / stock.getPb() * 100;
                         peScore = 6 / stock.getPettm() * 100;
+                    } else {
+                        pbScore = 1 / stock.getPb() * 100;
+                        peScore = 10 / stock.getPettm() * 100;
                     }
                     stockSave.setPbScore(pbScore);
                     stockSave.setPeScore(peScore);
