@@ -46,12 +46,7 @@ public class XueQiuApi {
      * 行业apis
      */
     public static XueQiuResponse<XueQiuResponseStocks> getStocks(Integer page, Integer size) {
-
         Map<String, Object> paramMap = new HashMap<>();
-
-        https:
-        //xueqiu.com/service/screener/screen?category=CN&exchange=sh_sz&areacode=&indcode=&order_by=netprofit.20200930&order=asc&page=1&size=30&only_count=0&current=&pct=&pettm=-842429.57_144253.24&pelyr=-7250.12_5673.56&pb=-310_308&netprofit.20200930=-2884173158.61_103041000000&_=1604033275652
-
         paramMap.put("category", "CN");
         paramMap.put("exchange", "sh_sz");
         paramMap.put("areacode", "");
@@ -63,13 +58,13 @@ public class XueQiuApi {
         paramMap.put("only_count", "0");
         paramMap.put("current", "");
         paramMap.put("pct", "");
-        paramMap.put("pettm", "-29986000000_33471851000000");
-        paramMap.put("pelyr", "-29986000000_33471851000000");
-        paramMap.put("pb", "-29986000000_33471851000000");
-        paramMap.put("netprofit.20200930", "-29986000000_33471851000000");
-        paramMap.put("ia.20200930", "-29986000000_33471851000000");
-        paramMap.put("ta.20200930", "-29986000000_33471851000000");
-        paramMap.put("goodwill", "-29986000000_33471851000000");
+        paramMap.put("pettm", Long.MIN_VALUE + "_" + Long.MAX_VALUE);
+        paramMap.put("pelyr", Long.MIN_VALUE + "_" + Long.MAX_VALUE);
+        paramMap.put("pb", Long.MIN_VALUE + "_" + Long.MAX_VALUE);
+        paramMap.put("netprofit.20200930", Long.MIN_VALUE + "_" + Long.MAX_VALUE);
+        paramMap.put("ia.20200930", Long.MIN_VALUE + "_" + Long.MAX_VALUE);
+        paramMap.put("ta.20200930", Long.MIN_VALUE + "_" + Long.MAX_VALUE);
+        paramMap.put("goodwill", Long.MIN_VALUE + "_" + Long.MAX_VALUE);
         paramMap.put("_", DateTimeUtil.getCurrentDateTimeStr());
         String result = HttpUtil.get(urStocks, paramMap);
         XueQiuResponse<XueQiuResponseStocks> data = JsonUtil.string2Obj(result, XueQiuResponse.class,

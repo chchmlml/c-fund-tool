@@ -31,7 +31,7 @@ public class XueqiuJob {
     @Autowired
     StockService stockService;
 
-    @Scheduled(cron = "* */30  * * * ?")
+    @Scheduled(cron = "* */15  * * * ?")
     public void cronJob() {
         log.info(">>>>>>>>>>>>>>>>>>> 雪球股票数据 @{}", DateTimeUtil.getCurrentDateTimeStr());
         run();
