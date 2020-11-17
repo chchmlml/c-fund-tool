@@ -48,7 +48,7 @@ public class StockController {
     }
 
     @RequestMapping("/getComboboxList")
-    public List<Map> getComboboxList(String q) {
+    public List<Map> getComboboxList(@RequestParam(name = "q", defaultValue = "") String q) {
         return service.getComboboxList(q);
     }
 }

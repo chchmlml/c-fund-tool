@@ -114,7 +114,7 @@ public class StockServiceImpl implements StockService {
 
     @Override
     public List<Map> getComboboxList(String q) {
-        List<Map> funds = stockMapper.getIndustryList(0, 200, "pb", "ASC", "", true, true, false);
+        List<Map> funds = stockMapper.getIndustryList(0, 200, "pb", "ASC", q, true, true, false);
         //        List<String> lists = stockMapper.getStockIndustryList(q);
         List<Map> result = new ArrayList<>();
         funds.forEach(f -> {
