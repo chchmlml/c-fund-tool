@@ -55,10 +55,10 @@ public class XueqiuJob {
             Double pageCountDouble = Math.ceil(totalCount / pageSize);
             Integer pageCount = pageCountDouble.intValue();
             for (Integer i = 1; i <= pageCount; i++) {
+                log.info("page {}, pageCount {}, size {}", i, pageCount, pageSize);
                 XueQiuResponse<XueQiuResponseStocks> response = XueQiuApi.getStocks(i, pageSize);
                 XueQiuResponseStocks responseData = response.getData();
                 responseData.getList().forEach(stock -> {
-                    log.info("### {}", stock);
                     Stock stockSave = new Stock();
                     stockSave.setName(stock.getName());
                     stockSave.setCode(stock.getSymbol());

@@ -122,6 +122,8 @@ $(function () {
                     // ret += "&nsbp;|&nsbp;";
                     ret += "|<a target='_blank' href='http://stockpage.10jqka.com.cn/"
                         + codeStr.replace(/sz|sh/gi, "") + "/'>同花顺</a>";
+                    ret += "|<a target='_blank' href='https://xueqiu.com/S/"
+                        + codeStr.toUpperCase() + "/'>雪球</a>";
                     return ret;
                 },
                 algin: 'center'
